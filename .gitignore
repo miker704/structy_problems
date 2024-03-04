@@ -1,0 +1,8 @@
+rust_version/target
+java_version/*.class
+java_version/*.iml
+java_version/.idea/
+java_version/out/
+cpp_version/exec
+.vscode
+*.class
