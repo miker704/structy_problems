@@ -9,6 +9,12 @@
 
 const pairProduct = (numbers, targetProduct) => {
     //todo
+    let hash = new Object();
+    for (let i = 0; i < numbers.length; i++) {
+        let divisor = targetProduct / numbers[i];
+        if (divisor in hash) { return [hash[divisor], i]; }
+        hash[numbers[i]] = i;
+    }
 
 }
 
