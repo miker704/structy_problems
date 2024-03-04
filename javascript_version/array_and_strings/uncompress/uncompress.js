@@ -13,6 +13,25 @@
 
 const uncompress = (s) => {
 
+    let i = 0;
+    let j = 0;
+    let numbers = "0123456789";
+    let result = "";
+    while (j <= s.length) {
+        if (numbers.includes(s[j])) {
+            j++;
+        }
+        else {
+            let cut = parseInt(s.slice(i, j));
+            for (let x = 0; x < cut; x++) {
+                result += s[j];
+            }
+            j++;
+            i = j;
+        }
+
+    }
+    return result;
 };
 
 console.log(uncompress("2c3a1t")); // -> 'ccaaat'
