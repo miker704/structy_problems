@@ -9,6 +9,12 @@
 
 const pairSum = (numbers, targetSum) => {
     // todo
+    let hash = new Object();
+    for (let i = 0; i < numbers.length; i++) {
+        let diff = targetSum - numbers[i];
+        if (diff in hash) { return [hash[diff], i]; }
+        hash[numbers[i]] = i;
+    }
 
 }
 
