@@ -9,7 +9,21 @@
 // You can assume that the input only contains alphabetic characters.
 const compress = (s) => {
 
+    let i = 0;
+    let j = 0;
+    let result = "";
+    while (j <= s.length) {
 
+        if (s[i] === s[j]) { j++; }
+        else if (s[i] !== s[j]) {
+            let cut = s.slice(i, j).length === 1 ? s[i] : String(s.slice(i, j).length) + s[i];
+            result+=cut;
+            i=j;
+        }
+
+    }
+
+    return result;
 };
 
 
