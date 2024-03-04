@@ -8,6 +8,7 @@
 
 
 const maxValue = (array) => {
+    return Math.max(...array);
 }
 
 
