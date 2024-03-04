@@ -1,5 +1,6 @@
 //write a functions that takes in a param string s and returns a string 'hey s';
 const greet = (s) => {
+    return `hey ${s}`;
 }
 
 
