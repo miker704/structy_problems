@@ -4,13 +4,33 @@
 // contain the same characters, but in any order.
 const anagrams = (s1, s2) => {
     // todo
+    if (s1.length !== s2.length) {
+        return false;
+    }
+    let obj1 = objectIt(s1);
+    let obj2 = objectIt(s2);
+    for (let i in obj1) {
+        if (obj1[i] !== obj2[i]) {
+            return false;
+        }
+    }
 
+    return true;
 };
 
 
 
-const objectIt = (s1) => {
-
+const objectIt = (s) => {
+    let object = new Object();
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] in object) {
+            object[s[i]] += 1;
+        }
+        else {
+            object[s[i]] = 1;
+        }
+    }
+    return object;
 }
 
 
