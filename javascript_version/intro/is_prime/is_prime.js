@@ -11,7 +11,13 @@
 // You can assume that the input number is a positive integer.
 
 const isPrime = (n) => {
-
+    if (n < 2) {
+        return false;
+    }
+    for (let i = 2; i < n; i++) {
+        if (n % i === 0) { return false; }
+    }
+    return true;
 }
 
 console.log(isPrime(2)); //true
