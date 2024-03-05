@@ -34,7 +34,22 @@ class Node {
 
 //alternative way
 const depthFirstValues = (root) => {
+    if (root === null) { return []; }
+    let array = new Array();
+    let treeNodes = new Array();
+    array.push(root);
 
+    while (array.length !== 0) {
+        let currNode = array.pop();
+        treeNodes.push(currNode.val);
+        if (currNode.right !== null) {
+            array.push(currNode.right);
+        }
+        if (currNode.left !== null) {
+            array.push(currNode.left);
+        }
+    }
+    return treeNodes;
 };
 
 // const depthFirstValuesRecur = (root) => {
@@ -55,7 +70,10 @@ const depthFirstValues = (root) => {
 // };
 //alternative way using javascripts unique built in functionalities
 const depthFirstValuesRecur = (root) => {
-
+    if (root === null) { return []; }
+    let left = depthFirstValuesRecur(root.left);
+    let right = depthFirstValuesRecur(root.right);
+    return [root.val, ...left, ...right];
 };
 
 
@@ -152,4 +170,4 @@ printDFS(depthFirstValuesRecur(a3));
 printDFS(depthFirstValues(null));
 printDFS(depthFirstValuesRecur(null));
 //   depthFirstValues(null);
-  //    -> []
+//    -> []
