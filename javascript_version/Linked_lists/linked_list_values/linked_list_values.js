@@ -16,17 +16,25 @@ class Node {
 }
 
 const linkedListValues = (head) => {
-
+    let result = [];
+    let curr = head;
+    while (curr !== null) {
+        result.push(curr.value);
+        curr = curr.next;
+    }
+    return result;
 }
-
-
-
 
 const linkedListValuesRecur = (head) => {
-
+    let result = [];
+    let curr = head;
+    _linkedListValuesRecur(curr, result);
+    return result;
 }
-const _linkedListValuesRecur = (currNode,array) => {
-
+const _linkedListValuesRecur = (currNode, array) => {
+    if (currNode === null) { return; }
+    array.push(currNode.value);
+    return _linkedListValuesRecur(currNode.next, array);
 }
 
 const a = new Node("a");
