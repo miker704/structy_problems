@@ -19,12 +19,46 @@ class Node {
 
 const insertNode = (head, value, index) => {
 
+
+    if (index === 0) {
+        let newNode = new Node(value);
+        newNode.next = head;
+        head = newNode;
+        return head;
+    }
+
+    let counter = 0;
+    let curr = head;
+
+    while (curr !== null) {
+        if (counter === index - 1) {
+            let newNode = new Node(value);
+            let nextNode = curr.next;
+            curr.next = newNode;
+            newNode.next = nextNode;
+            break;
+        }
+
+        counter++;
+        curr = curr.next;
+    }
+
+    return head;
+
 };
 
 
 
 const insertNodeRecur = (head, value, index) => {
 
+    if (index === 0) {
+        let newNode = new Node(value);
+        newNode.next = head;
+        return newNode;
+    }
+
+    head.next = insertNodeRecur(head.next, value, index - 1);
+    return head;
 };
 
 
