@@ -20,12 +20,46 @@ class Node {
 
 const removeNode = (head, targetVal) => {
     // todo
+    if (head === null) { return null; }
+
+    if (head.val === targetVal && head.next === null) {
+        head = null;
+        return null;
+    }
+
+    if (head.val === targetVal && head.next !== null) {
+        let curr = head;
+        head = head.next;
+        curr.next = null;
+        return head;
+    }
+
+    let curr = head;
+    let prev = null;
+    while (curr !== null) {
+        if (curr.val === targetVal) {
+            prev.next = curr.next;
+            curr.next = null;
+            break;
+        }
+        prev = curr;
+        curr = curr.next;
+    }
+
+    return head;
 
 };
 
 const removeNodeRecur = (head, targetVal) => {
-    
 
+    if (head === null) {
+        return null;
+    }
+    if (head.val === targetVal) {
+        return head.next;
+    }
+    head.next = removeNodeRecur(head.next, targetVal);
+    return head;
 };
 
 const printList = (head) => {
