@@ -12,16 +12,23 @@ class Node {
 
 
 const linkedListFind = (head, target) => {
-
+    let curr=head;
+    while(curr!==null){
+        if(curr.value === target){return true;}
+        curr=curr.next;
+    }
+    return false;
 }
 
 const linkedListFindRecur = (head, target) => {
-
+    let curr = head;
+    return _linkedListFindRecur(curr, target)
 }
 
 const _linkedListFindRecur = (curr, target) => {
-
-
+    if (curr === null) { return false; }
+    if (curr.value === target) { return true; }
+    return _linkedListFindRecur(curr.next, target);
 }
 
 console.log("iterative method");
