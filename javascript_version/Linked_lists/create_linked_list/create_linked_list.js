@@ -14,13 +14,25 @@ class Node {
 
 const createLinkedList = (values) => {
     // todo
-
+    if (values.length === 0) { return null; }
+    let head = new Node(values[0]);
+    let curr = head;
+    for (let i = 1; i < values.length; i++) {
+        let newNode = new Node(values[i]);
+        curr.next = newNode;
+        curr = newNode;
+    }
+    return head;
 };
 const createLinkedListRecur = (values) => {
     // todo
+    return createLinkedListRecurExe(values, 0);
 };
 const createLinkedListRecurExe = (values, idx) => {
-
+    if (idx === values.length) { return null; }
+    let newNode = new Node(values[idx]);
+    newNode.next = createLinkedListRecurExe(values, idx + 1);
+    return newNode;
 };
 
 const printList = (head) => {
