@@ -12,15 +12,25 @@ class Node {
 
 
 const getNodeValue = (head, index) => {
-
+    let curr = head;
+    let x = 0;
+    while (curr !== null) {
+        if (x === index) { return curr.value; }
+        curr = curr.next;
+        x++;
+    }
+    return null;
 }
 
 const getNodeValueRecur = (head, index) => {
-
+    let curr = head;
+    return _getNodeValueRecur(curr, index);
 }
 
 const _getNodeValueRecur = (curr, index) => {
-
+    if (curr === null) { return null; }
+    if (index === 0) { return curr.value; }
+    return _getNodeValueRecur(curr.next, index - 1);
 }
 
 
