@@ -13,16 +13,26 @@ class Node {
 }
 
 const isUnivalueList = (head) => {
+    let curr = head;
+    while (curr !== null) {
+        if (curr.val !== head.val) { return false; }
+        curr = curr.next;
+    }
+    return true;
 
 };
 const isUnivalueListRecur = (head) => {
     // todo
+    let curr = head;
+    return isUnivalueListRecurExe(curr, head);
 
 };
 
 
 const isUnivalueListRecurExe = (curr, head) => {
-
+    if (curr === null) { return true; }
+    if (curr.val !== head.val) { return false }
+    return isUnivalueListRecurExe(curr.next, head);
 };
 const a = new Node(7);
 const b = new Node(7);
