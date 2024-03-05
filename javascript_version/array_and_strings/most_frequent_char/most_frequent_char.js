@@ -6,7 +6,12 @@
 // You can assume that the input string is non-empty.
 
 const mostFrequentChar = (s) => {
-    
+    let hash = new Object();
+    for (char of s) {
+        hash[char] = (hash[char] || 0) + 1;
+    }
+    if (Object.values(hash).length === 0) { return null; }
+    return Object.keys(hash).reduce((a, b) => hash[a] >= hash[b] ? a : b);
 };
 
 
