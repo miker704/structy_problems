@@ -11,26 +11,44 @@ class Node {
 
 const reverseList = (head) => {
 
-
+    let curr = head;
+    let prev = null;
+    while (curr !== null) {
+        let next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+    }
+    head = prev;
+    return head;
 
 }
 
 const reverseListRecur = (head) => {
+    let curr = head;
+    let prev = null;
+    return _reverseListRecur(head, curr, prev);
+}
+
+const _reverseListRecur = (head, curr, prev) => {
+
+    if (curr === null) {
+        head = prev;
+        return prev;
+    }
+    let next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
+    return _reverseListRecur(head, curr, prev);
 
 }
 
-const _reverseListRecur = (head,curr,prev) => {
-
-
-    
-
- }
-
- const _reverseListRecur2 = (head,curr,prev) => {
+const _reverseListRecur2 = (head, curr, prev) => {
 
 
 
- }
+}
 
 
 const printList = (head) => {
