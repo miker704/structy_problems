@@ -13,8 +13,22 @@ class Node {
 
 const longestStreak = (head) => {
     // todo
-
-
+    let curr = head;
+    let prev = null;
+    let currStreak = 0;
+    let maxStreak = 0;
+    while (curr !== null) {
+        if (prev === null || prev.val === curr.val) {
+            currStreak++;
+        }
+        else {
+            currStreak = 1;
+        }
+        maxStreak = Math.max(maxStreak, currStreak);
+        prev = curr;
+        curr = curr.next;
+    }
+    return maxStreak;
 };
 
 
