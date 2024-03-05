@@ -4,7 +4,7 @@
 
 
 class Node {
-    constructor(value){
+    constructor (value) {
         this.value = value;
         this.next = null;
     }
@@ -12,16 +12,25 @@ class Node {
 
 
 const sumList = (head) => {
-
+    let sum = 0;
+    let curr = head;
+    while (curr !== null) {
+        sum += curr.value;
+        curr = curr.next;
+    }
+    return sum;
 }
 
 const sumListRecur = (head) => {
-
+    let sum = 0;
+    let curr = head;
+    return _sumListRecur(curr);
 }
 
 
 const _sumListRecur = (curr) => {
-
+    if (curr === null) { return 0; }
+    return curr.value + _sumListRecur(curr.next);
 }
 
 console.log("iterative method");
