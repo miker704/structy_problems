@@ -31,20 +31,59 @@ class Node {
 const addLists = (head1, head2) => {
     // todo
 
+    let curr1 = head1;
+    let curr2 = head2;
+    let dead_node = new Node(0);
+    let tail = dead_node;
+    let carryOver = 0;
 
 
+    while (curr1 !== null || curr2 !== null || carryOver !== 0) {
+        let value1 = curr1 === null ? 0 : curr1.val;
+        let value2 = curr2 === null ? 0 : curr2.val;
+        let sum = value1 + value2 + carryOver;
+        carryOver = sum > 9 ? 1 : 0;
+
+        let digit = sum % 10;
+        let newNode = new Node(digit);
+        tail.next = newNode;
+        tail = tail.next;
+
+        if (curr1 !== null) {
+            curr1 = curr1.next;
+        }
+        if (curr2 !== null) {
+            curr2 = curr2.next;
+        }
+
+    }
+
+    return dead_node.next;
 };
 
 
 
 const addListsRecur = (head1, head2) => {
     // todo
-
+    return addListsRecurExe(head1, head2, 0);
 };
 const addListsRecurExe = (head1, head2, carryOver) => {
     // todo
 
+    if (head1 === null && head2 === null && carryOver === 0) {
+        return null;
+    }
+    let value1 = head1 === null ? 0 : head1.val;
+    let value2 = head2 === null ? 0 : head2.val;
+    let sum = value1 + value2 + carryOver;
+    carryOver = sum > 9 ? 1 : 0;
+    let digit = sum % 10;
+    let tail = new Node(digit);
 
+    let next1 = head1 === null ? null : head1.next;
+    let next2 = head2 === null ? null : head2.next;
+    tail.next = addListsRecurExe(next1, next2, carryOver);
+    return tail;
 };
 
 const printList = (head) => {
