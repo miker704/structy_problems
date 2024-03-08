@@ -14,18 +14,49 @@ class Node {
 
 const treeMinValueDFS = (root) => {
     // todo
+    if (root === null) { return Infinity; }
 
+    let minValue = Infinity;
+    let stack = [root];
+    while (stack.length !== 0) {
+        let curr = stack.pop();
+        minValue = Math.min(minValue, curr.val);
+        if (curr.left !== null) {
+            stack.push(curr.left);
+        }
+        if (curr.right !== null) {
+            stack.push(curr.right);
+        }
+
+    }
+    return minValue;
 };
 
 const treeMinValueBFS = (root) => {
     // todo
-
+    if (root === null) { return Infinity; }
+    let queue = [root];
+    let minValue = Infinity;
+    while (queue.length !== 0) {
+        let curr = queue.shift();
+        minValue = Math.min(minValue, curr.val);
+        if (curr.left !== null) {
+            queue.push(curr.left);
+        }
+        if (curr.right !== null) {
+            queue.push(curr.right);
+        }
+    }
+    return minValue;
 };
 
 
 const treeMinValueRecurDFS = (root) => {
     // todo
-
+    if (root === null) { return Infinity; }
+    let smallestLeftSubTreeValue = treeMinValueRecurDFS(root.left);
+    let smallestrightSubTreeValue = treeMinValueRecurDFS(root.right);
+    return Math.min(root.val, smallestLeftSubTreeValue, smallestrightSubTreeValue);
 };
 
 const a = new Node(3);
