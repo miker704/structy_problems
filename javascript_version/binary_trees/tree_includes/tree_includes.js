@@ -13,14 +13,26 @@ class Node {
 //the function is a bit different because we are using strings as values however this method should work for any data type
 const treeIncludes = (root, target) => {
 
-
-
-
+    if (root === null) { return false; }
+    let queue = [root];
+    while (queue.length !== 0) {
+        let curr = queue.shift();
+        if (curr.val === target) { return true; }
+        if (curr.left !== null) {
+            queue.push(curr.left);
+        }
+        if (curr.right !== null) {
+            queue.push(curr.right);
+        }
+    }
+    return false;
 };
 
 const treeIncludesRecur = (root, target) => {
     // todo
-
+    if (root === null) { return false; }
+    if (root.val === target) { return true; }
+    return treeIncludesRecur(root.left, target) || treeIncludesRecur(root.right, target);
 };
 
 
