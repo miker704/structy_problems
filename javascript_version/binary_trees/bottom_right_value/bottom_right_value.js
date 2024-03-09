@@ -15,8 +15,23 @@ class Node {
 
 const bottomRightValue = (root) => {
 
+    if (root.right === null && root.left === null) {
+        return root.val;
+    }
+    let queue = [root];
+    let bottomRValue = queue[0].val;
+    while (queue.length !== 0) {
+        let curr = queue.shift();
+        bottomRValue = curr.val;
+        if (curr.left !== null) {
+            queue.push(curr.left);
+        }
+        if (curr.right !== null) {
+            queue.push(curr.right);
+        }
 
-
+    }
+    return bottomRValue;
 };
 
 
