@@ -12,19 +12,39 @@ class Node {
 
 const leafList = (root) => {
     // todo
-
-
-
+    if (root === null) { return []; }
+    return _leafList(root, []);
 };
 
 const _leafList = (root, vec) => {
-
+    if (root === null) { return []; }
+    if (root.right === null && root.left === null) {
+        vec.push(root.val);
+    }
+    _leafList(root.left, vec);
+    _leafList(root.right, vec);
+    return vec;
 };
 
 
 
 const leafListDepthFirstIter = (root) => {
-    
+    if (root === null) { return []; }
+    let stack = [root];
+    let result = [];
+    while (stack.length !== 0) {
+        let curr = stack.pop();
+        if (curr.left === null && curr.right === null) {
+            result.push(curr.val);
+        }
+        if (curr.right !== null) {
+            stack.push(curr.right);
+        }
+        if (curr.left !== null) {
+            stack.push(curr.left);
+        }
+    }
+    return result;
 };
 
 const a = new Node("a");
