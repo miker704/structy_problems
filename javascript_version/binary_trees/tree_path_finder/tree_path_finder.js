@@ -18,13 +18,24 @@ class Node {
 
 const pathFinder = (root, target) => {
     // todo
-
+    let vec = _pathFinder(root, target);
+    return vec === null ? null : vec.reverse();
 };
 const _pathFinder = (root, target) => {
     // todo
-
-
-
+    if (root === null) { return null; }
+    if (root.val === target) { return [root.val]; }
+    let leftSide = _pathFinder(root.left, target);
+    if (leftSide !== null) { 
+        leftSide.push(root.val);
+        return leftSide;
+    }
+    let rightSide = _pathFinder(root.right, target);
+    if (rightSide !== null) { 
+        rightSide.push(root.val);
+        return rightSide;
+     }
+    return null;
 };
 
 const a = new Node("a");
