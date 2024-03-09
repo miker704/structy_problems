@@ -16,16 +16,35 @@ class Node {
 
 const levelAverages = (root) => {
     // todo
-
+    if (root === null) { return []; }
+    let levels = [];
+    _levelAverages(root, levels, 0);
+    for (let subArray = 0; subArray < levels.length; subArray++) {
+        levels[subArray] = calcAvg(levels[subArray]);
+    }
+    return levels;
 };
 
 
 const _levelAverages = (root, levels, levelNum) => {
-    
+    if (root === null) { return []; }
+    if (levels.length === levelNum) {
+        levels[levelNum] = [root.val];
+    }
+    else {
+        levels[levelNum].push(root.val);
+    }
+    _levelAverages(root.left, levels, levelNum + 1);
+    _levelAverages(root.right, levels, levelNum + 1);
+
 }
 
 const calcAvg = (subLevels) => {
-
+    let result = 0;
+    for (let i = 0; i < subLevels.length; i++) {
+        result += subLevels[i];
+    }
+    return (result / subLevels.length);
 }
 
 const a = new Node(3);
