@@ -15,7 +15,18 @@ class Node {
 }
 
 const allTreePaths = (root) => {
-
+    if (root === null) { return []; }
+    if (root.left === null && root.right === null) { return [[root.val]]; }
+    let result = [];
+    let left = allTreePaths(root.left);
+    for (let subarray of left) {
+        result.push([root.val, ...subarray]);
+    }
+    let right = allTreePaths(root.right);
+    for (let subarray of right) {
+        result.push([root.val, ...subarray]);
+    }
+    return result;
 };
 
 
@@ -111,6 +122,6 @@ const z = new Node('z');
 //      z
 
 console.table(allTreePaths(z)); // -> 
-  // [
-  //   ['z']
-  // ]
+// [
+//   ['z']
+// ]
