@@ -13,12 +13,27 @@ class Node {
 
 const treeValueCount = (root, target) => {
     // todo
-    
+    if (root === null) { return 0; }
+    let match = root.val === target ? 1 : 0;
+    return match + treeValueCount(root.left, target) + treeValueCount(root.right, target);
 };
 
 const treeValueCountBreadth = (root, target) => {
     // todo
-
+    if (root === null) { return 0; }
+    let count = 0;
+    let queue = [root];
+    while (queue.length !== 0) {
+        let curr = queue.shift();
+        if (curr.val === target) { count++; }
+        if (curr.left !== null) {
+            queue.push(curr.left);
+        }
+        if (curr.right !== null) {
+            queue.push(curr.right);
+        }
+    }
+    return count;
 };
 
 const a = new Node(12);
