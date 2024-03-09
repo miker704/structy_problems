@@ -14,15 +14,29 @@ class Node {
 
 const treeLevels = (root) => {
     // todo
-
-
+    if (root === null) {
+        return [];
+    }
+    let levels = []
+    return _treeLevels(root, levels, 0);
 };
 
 
 const _treeLevels = (root, levels, levelNum) => {
     // todo
+    if (root === null) {
+        return [];
+    }
 
-
+    if (levels.length === levelNum) {
+        levels[levelNum] = [root.val];
+    }
+    else {
+        levels[levelNum].push(root.val);
+    }
+    let left = _treeLevels(root.left, levels, levelNum + 1);
+    let right = _treeLevels(root.right, levels, levelNum + 1);
+    return levels;
 };
 // const treeLevelsBreadth = (root) => {
 //     //      a
@@ -40,22 +54,22 @@ const _treeLevels = (root, levels, levelNum) => {
 //     let sub = [];
 //     while (queue.length !== 0) {
 //         let nodeInfo = queue.shift();
-//         let curr = nodeInfo.node;
-//         let currlvl = nodeInfo.level;
+//         let node = nodeInfo.node;
+//         let nodelvl = nodeInfo.level;
 
-//         if (prevLvl === currlvl) {
-//             sub.push(curr.val)
+//         if (prevLvl === nodelvl) {
+//             sub.push(node.val)
 //         }
 //         else {
 //             result.push(sub);
-//             prevLvl = currlvl
-//             sub = [curr.val];
+//             prevLvl = nodelvl
+//             sub = [node.val];
 //         }
-//         if (curr.left !== null) {
-//             queue.push({ node: curr.left, level: currlvl + 1 });
+//         if (node.left !== null) {
+//             queue.push({ node: node.left, level: nodelvl + 1 });
 //         }
-//         if (curr.right !== null) {
-//             queue.push({ node: curr.right, level: currlvl + 1 });
+//         if (node.right !== null) {
+//             queue.push({ node: node.right, level: nodelvl + 1 });
 //         }
 //     }
 //     result.push(sub);
@@ -69,8 +83,25 @@ const treeLevelsBreadth = (root) => {
     //  / \     \
     // d   e     f
 
-
-
+    if (root === null) { return []; }
+    let result = [];
+    let queue = [{ node: root, level: 0 }];
+    while (queue.length !== 0) {
+        let { node, level } = queue.shift();
+        if (result.length === level) {
+            result[level] = [node.val];
+        }
+        else {
+            result[level].push(node.val);
+        }
+        if (node.left !== null) {
+            queue.push({ node: node.left, level: level + 1 });
+        }
+        if (node.right !== null) {
+            queue.push({ node: node.right, level: level + 1 });
+        }
+    }
+    return result;
 };
 
 const a = new Node("a");
