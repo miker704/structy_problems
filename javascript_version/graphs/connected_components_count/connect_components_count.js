@@ -4,12 +4,24 @@
 
 
 const connectedComponentsCount = (graph) => {
-
+    let count = 0;
+    let visitedNodes = new Set();
+    for (let currNode in graph) {
+        if (hasPath(graph, currNode, visitedNodes)) {
+            count++;
+        }
+    }
+    return count;
 };
 
 
 const hasPath = (graph, currNode, visitedNodes) => {
-
+    if (visitedNodes.has(String(currNode))) { return false; }
+    visitedNodes.add(String(currNode));
+    for (let curr of graph[currNode]) {
+        hasPath(graph, curr, visitedNodes);
+    }
+    return true;
 }
 
 
