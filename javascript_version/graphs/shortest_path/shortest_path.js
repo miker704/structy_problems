@@ -7,12 +7,38 @@
 //using breadth first search since we are looking for the shortest path
 
 const shortestPath = (edges, nodeA, nodeB) => {
-    
+    let graph = buildGraph(edges);
+    let visitedNodes = new Set();
+    let queue = [[nodeA, 0]];
+    while (queue.length !== 0) {
+        let [curr, result] = queue.shift();
+        if (curr === nodeB) { return result; }
+        for (let currNode of graph[curr]) {
+            if (!visitedNodes.has(currNode)) {
+                visitedNodes.add(currNode);
+                queue.push([currNode, result + 1]);
+            }
+        }
+    }
+    return -1;
 };
 
 
 const buildGraph = (edges) => {
-    
+    let graph = {};
+    for (let pair of edges) {
+        let x = pair[0];
+        let y = pair[1];
+        if (!(x in graph)) {
+            graph[x] = [];
+        }
+        if (!(y in graph)) {
+            graph[y] = [];
+        }
+        graph[x].push(y);
+        graph[y].push(x);
+    }
+    return graph;
 }
 
 
