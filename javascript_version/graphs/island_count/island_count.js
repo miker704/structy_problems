@@ -5,13 +5,32 @@
 
 
 const islandCount = (grid) => {
-
+    let count = 0;
+    let visited = new Set();
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            if (hasPath(grid, row, col, visited)) {
+                count++;
+            }
+        }
+    }
+    return count;
 };
 
 
 const hasPath = (grid, row, col, visited) => {
-
-
+    let pos = `${row},${col}`;
+    let rBound = 0 <= row && row < grid.length;
+    let cBound = 0 <= col && col < grid[0].length;
+    if (visited.has(pos)) { return false; }
+    visited.add(pos);
+    if (!rBound || !cBound) { return false; }
+    if (grid[row][col] === 'W') { return false; }
+    hasPath(grid, row + 1, col, visited);
+    hasPath(grid, row - 1, col, visited);
+    hasPath(grid, row, col + 1, visited);
+    hasPath(grid, row, col - 1, visited);
+    return true;
 }
 
 
