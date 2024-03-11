@@ -11,12 +11,12 @@ const shortestPath = (edges, nodeA, nodeB) => {
     let visitedNodes = new Set();
     let queue = [[nodeA, 0]];
     while (queue.length !== 0) {
-        let [curr, result] = queue.shift();
-        if (curr === nodeB) { return result; }
-        for (let currNode of graph[curr]) {
-            if (!visitedNodes.has(currNode)) {
-                visitedNodes.add(currNode);
-                queue.push([currNode, result + 1]);
+        let [node, result] = queue.shift();
+        if (node === nodeB) { return result; }
+        for (let curr of graph[node]) {
+            if (!visitedNodes.has(String(curr))) {
+                visitedNodes.add(String(curr));
+                queue.push([curr, result + 1]);
             }
         }
     }
@@ -27,14 +27,9 @@ const shortestPath = (edges, nodeA, nodeB) => {
 const buildGraph = (edges) => {
     let graph = {};
     for (let pair of edges) {
-        let x = pair[0];
-        let y = pair[1];
-        if (!(x in graph)) {
-            graph[x] = [];
-        }
-        if (!(y in graph)) {
-            graph[y] = [];
-        }
+        let [x, y] = [pair[0], pair[1]];
+        if (!(x in graph)) { graph[x] = []; }
+        if (!(y in graph)) { graph[y] = []; }
         graph[x].push(y);
         graph[y].push(x);
     }
