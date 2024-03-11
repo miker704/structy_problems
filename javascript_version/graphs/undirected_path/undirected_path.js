@@ -14,39 +14,34 @@
 //this is recursive dfs 
 const undirectedPath = (edges, nodeA, nodeB) => {
   let graph = buildUndirectedGraph(edges);
-  let visited = new Set();
-  return hasPath(graph, nodeA, nodeB, visited);
+  let visitedNodes = new Set();
+  return hasPath(graph, nodeA, nodeB, visitedNodes);
 };
 
 
 const undirectedPathDFSIter = (edges, nodeA, nodeB) => {
   let graph = buildUndirectedGraph(edges);
   let stack = [nodeA];
-  let visited = new Set();
+  let visitedNodes = new Set();
   while (stack.length !== 0) {
     let curr = stack.pop();
-    visited.add(curr);
     if (curr === nodeB) { return true; }
-    for (let pair of graph[curr]) {
-      if (!visited.has(pair)) {
-        stack.push(pair);
+    for (let currNode of graph[curr]) {
+      if (!visitedNodes.has(currNode)) {
+        visitedNodes.add(currNode);
+        stack.push(currNode);
       }
     }
   }
-
   return false;
 }
 
 const hasPath = (graph, nodeA, nodeB, visited) => {
   if (nodeA === nodeB) { return true; }
-  if (visited.has(nodeA)) {
-    return false;
-  }
-  visited.add(nodeA);
-  for (let currNode of graph[nodeA]) {
-    if (hasPath(graph, currNode, nodeB, visited)) {
-      return true;
-    }
+  if (visited.has(String(nodeA))) { return false; }
+  visited.add(String(nodeA));
+  for (let curr of graph[nodeA]) {
+    if (hasPath(graph, curr, nodeB, visited)) { return true; }
   }
   return false;
 }
@@ -58,24 +53,23 @@ const undirectedPathBFS = (edges, nodeA, nodeB) => {
   let queue = [nodeA];
   while (queue.length !== 0) {
     let curr = queue.shift();
-    visited.add(curr);
     if (curr === nodeB) { return true; }
-    for (let pair of graph[curr]) {
-      if (!visited.has(pair)) {
-        queue.push(pair);
+    for (let currNode of graph[curr]) {
+      if (!visited.has(currNode)) {
+        visited.add(currNode);
+        queue.push(currNode);
       }
     }
   }
-
   return false;
 }
 
 
 const buildUndirectedGraph = (edges) => {
-  let graph = [];
-  for (let path of edges) {
-    let x = path[0];
-    let y = path[1];
+  let graph = {};
+  for (let pair of edges) {
+    let x = pair[0];
+    let y = pair[1];
     if (!(x in graph)) { graph[x] = []; }
     if (!(y in graph)) { graph[y] = []; }
     graph[x].push(y);
