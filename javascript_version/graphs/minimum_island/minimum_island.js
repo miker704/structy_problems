@@ -9,14 +9,32 @@
 //dp only
 
 const minimumIsland = (grid) => {
-
-
+    let minLen = Infinity;
+    let visited = new Set();
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            let temp = hasPath(grid, row, col, visited);
+            if (temp > 0 && temp < minLen) { minLen = temp; }
+        }
+    }
+    return minLen;
 };
 
 
 const hasPath = (grid, row, col, visited) => {
-
-
+    let rBound = 0 <= row && row < grid.length;
+    let cBound = 0 <= col && col < grid[0].length;
+    let pos = `${row},${col}`;
+    if (visited.has(pos)) { return 0; }
+    visited.add(pos);
+    if (!rBound || !cBound) { return 0; }
+    if (grid[row][col] === "W") { return 0; }
+    let size = 1;
+    size += hasPath(grid, row + 1, col, visited);
+    size += hasPath(grid, row - 1, col, visited);
+    size += hasPath(grid, row, col + 1, visited);
+    size += hasPath(grid, row, col - 1, visited);
+    return size;
 }
 
 
