@@ -5,22 +5,22 @@
 
 const largestComponent = (graph) => {
   // todo
-  let maxCount = 0;
-  for (let currNode in graph) {
-    maxCount = Math.max(hasPath(graph, currNode, new Set()), maxCount);
+  let largest = 0;
+  let visitedNodes = new Set();
+  for (let curr in graph) {
+    largest = Math.max(largest, hasPath(graph, curr, visitedNodes))
   }
-  return maxCount;
+  return largest;
 };
 
 const hasPath = (graph, currNode, visitedNodes) => {
-  if (visitedNodes.has(String(currNode))) {
-    return 0;
-  }
+  if (visitedNodes.has(String(currNode))) { return 0; }
   visitedNodes.add(String(currNode));
+  let size = 1;
   for (let curr of graph[currNode]) {
-    hasPath(graph, curr, visitedNodes);
+    size += hasPath(graph, curr, visitedNodes);
   }
-  return visitedNodes.size;
+  return size;
 }
 
 
