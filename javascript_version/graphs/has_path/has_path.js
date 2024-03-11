@@ -31,9 +31,7 @@
 // };
 const hasPathDFS = (graph, src, dst) => {
     if (src === dst) { return true; }
-    for (let i of graph[src]) {
-        if(hasPathDFS(graph, i, dst)){return true;}
-    }
+    for (let curr of graph[src]) { if (hasPathDFS(graph, curr, dst)) { return true; } }
     return false;
 };
 
@@ -43,8 +41,8 @@ const hasPathBFS = (graph, src, dst) => {
     while (queue.length !== 0) {
         let curr = queue.shift();
         if (curr === dst) { return true; }
-        for (let i of graph[curr]) {
-            queue.push(i);
+        for (let currNode of graph[curr]) {
+            queue.push(currNode);
         }
     }
     return false;
