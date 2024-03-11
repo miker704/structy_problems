@@ -6,10 +6,8 @@
 const connectedComponentsCount = (graph) => {
     let count = 0;
     let visitedNodes = new Set();
-    for (let currNode in graph) {
-        if (hasPath(graph, currNode, visitedNodes)) {
-            count++;
-        }
+    for (let node in graph) {
+        if (hasPath(graph, node, visitedNodes)) { count++; }
     }
     return count;
 };
