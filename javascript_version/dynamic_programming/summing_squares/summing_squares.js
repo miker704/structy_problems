@@ -153,7 +153,16 @@
 // optimized recursion with memoization method time complexity is O(sqrt(n)*n) space O(n)
 
 const summingSquares = (n, hash = {}) => {
-
+    if (n in hash) { return hash[n]; }
+    if (n === 0) { return 0; }
+    if(n < 0){return Infinity;}
+    let max = Infinity;
+    for (let i = 1; i <= Math.sqrt(n); i++) {
+        let currSquare = i * i;
+        let curr = 1 + summingSquares(n - currSquare, hash);
+        max = Math.min(max, curr);
+    }
+    return hash[n] = max;
 }
 
 console.log(summingSquares(8)); // -> 2
