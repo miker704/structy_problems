@@ -32,20 +32,62 @@ return path size;
 
 const bestBridge = (grid) => {
 
+    let island1 = new Set();
+    let island2 = new Set();
+    let moveSet = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    let queue = [];
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            let currentIsland = getIsland(grid, row, col, new Set());
+            if (currentIsland.size > 0) { island1 = currentIsland; }
+        }
+    }
+
+    for (let pos of island1) {
+        let curr = pos.split(",");
+        let [x, y] = [parseInt(curr[0]), parseInt(curr[1])];
+        queue.push([x, y, 0])
+    }
 
 
-
+    while (queue.length !== 0) {
+        let [currX, currY, numMoves] = queue.shift();
+        let currPos = `${currX},${currY}`;
+        if (grid[currX][currY] === "L" && !island1.has(currPos)) {
+            return numMoves - 1;
+        }
+        for (let move of moveSet) {
+            let newX = currX + move[0];
+            let newY = currY + move[1];
+            let newPos = `${newX},${newY}`;
+            if (isMapBound(grid, newX, newY) && !island2.has(newPos)) {
+                queue.push([newX, newY, numMoves + 1]);
+                island2.add(newPos);
+            }
+        }
+    }
 
 }
 
 const isMapBound = (grid, row, col) => {
-
+    let rBound = 0 <= row && row < grid.length;
+    let cBound = 0 <= col && col < grid[0].length;
+    return rBound && cBound;
 }
 
 
 const getIsland = (grid, row, col, islandSet) => {
-
-
+    let pos = `${row},${col}`;
+    if (!isMapBound(grid, row, col) || grid[row][col] === "W") { return islandSet; }
+    if (islandSet.has(pos)) {
+        return islandSet;
+    }
+    islandSet.add(pos);
+    getIsland(grid, row + 1, col, islandSet);
+    getIsland(grid, row - 1, col, islandSet);
+    getIsland(grid, row, col + 1, islandSet);
+    getIsland(grid, row, col - 1, islandSet);
+    return islandSet;
 }
 
 
