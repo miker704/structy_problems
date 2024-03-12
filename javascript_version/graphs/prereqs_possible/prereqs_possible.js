@@ -7,18 +7,47 @@
 
 const prereqsPossible = (numCourses, prereqs) => {
     // todo
+    let graph = buildGraph(numCourses, prereqs);
+    let black = new Set();
+    for (let course in graph) {
+        if (traverseGraph(graph, new Set(), black, course)) {
+            return false;
+        }
+    }
 
+    return true;
 };
 
 const traverseGraph = (graph, grey, black, node) => {
 
-
+    if (grey.has(node)) {
+        return true;
+    }
+    grey.add(node);
+    if (black.has(node)) {
+        return false;
+    }
+    for (let course of graph[node]) {
+        if (traverseGraph(graph, grey, black, course)) {
+            return true;
+        }
+    }
+    grey.delete(node);
+    black.add(node);
+    return false;
 }
 
 
 const buildGraph = (numCourses, prereqs) => {
-
-
+    let graph = {};
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = [];
+    }
+    for (let preqs of prereqs) {
+        let [x, y] = preqs;
+        graph[x].push(y);
+    }
+    return graph;
 }
 
 let numCourses = 6;
