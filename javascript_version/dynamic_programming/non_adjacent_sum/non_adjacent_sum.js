@@ -32,45 +32,58 @@
 //using the dup array method 
 
 const nonAdjacentSum = (nums) => {
-
-    
-
+    if (nums.length === 0) { return 0; }
+    if (nums.length === 1) { return nums[0]; }
+    let array = new Array(nums.length).fill(0);
+    array[0] = nums[0];
+    array[1] = Math.max(array[0], nums[1]);
+    for (let i = 2; i < nums.length; i++) {
+        array[i] = Math.max(array[i - 1], array[i - 2] + nums[i]);
+    }
+    return Math.max(...array);
 }
 
 //using the recusion method with memoization with a hash 
 
 const nonAdjacentSumrecur = (nums, idx = 0, hash = {}) => {
-
-
+    if (idx in hash) { return hash[idx]; }
+    if (idx >= nums.length) {
+        return 0;
+    }
+    let excluded = nonAdjacentSumrecur(nums, idx + 1, hash);
+    let included = nums[idx] + nonAdjacentSumrecur(nums, idx + 2, hash);
+    hash[idx] = Math.max(excluded, included);
+    return hash[idx];
 }
 
 
 let nums = [2, 4, 5, 12, 7];
-// console.log(nonAdjacentSum(nums)); // -> 16
+console.log(nonAdjacentSum(nums)); // -> 16
 console.log(nonAdjacentSumrecur(nums)); // -> 16
 nums = [12];
-// console.log(nonAdjacentSum(nums)); // -> 12
-// console.log(nonAdjacentSumrecur(nums)); // -> 12
+console.log(nonAdjacentSum(nums)); // -> 12
+console.log(nonAdjacentSumrecur(nums)); // -> 12
 nums = [12, 16];
 
-// console.log(nonAdjacentSum(nums)); // -> 16
-// console.log(nonAdjacentSumrecur(nums)); // -> 16
+console.log(nonAdjacentSum(nums)); // -> 16
+console.log(nonAdjacentSumrecur(nums)); // -> 16
 nums = [163, 16];
-// console.log(nonAdjacentSumrecur(nums)); // -> 163
+console.log(nonAdjacentSum(nums)); // -> 163
+console.log(nonAdjacentSumrecur(nums)); // -> 163
 nums = [7, 5, 5, 12];
-// console.log(nonAdjacentSum(nums)); // -> 19
-// console.log(nonAdjacentSumrecur(nums));
+console.log(nonAdjacentSum(nums)); // -> 19
+console.log(nonAdjacentSumrecur(nums));
 nums = [7, 5, 5, 12, 17, 29];
-// console.log(nonAdjacentSum(nums)); // -> 48
-// console.log(nonAdjacentSumrecur(nums));
+console.log(nonAdjacentSum(nums)); // -> 48
+console.log(nonAdjacentSumrecur(nums));
 nums = [
     72, 62, 10, 6, 20, 19, 42,
     46, 24, 78, 30, 41, 75, 38,
     23, 28, 66, 55, 12, 17, 9,
     12, 3, 1, 19, 30, 50, 20
 ];
-// console.log(nonAdjacentSum(nums)); // -> 488
-// console.log(nonAdjacentSumrecur(nums));
+console.log(nonAdjacentSum(nums)); // -> 488
+console.log(nonAdjacentSumrecur(nums));
 nums = [
     72, 62, 10, 6, 20, 19, 42, 46, 24, 78,
     30, 41, 75, 38, 23, 28, 66, 55, 12, 17,
@@ -80,5 +93,5 @@ nums = [
     72, 62, 10, 6, 20, 19, 42, 46, 24, 78,
     42
 ];
-// console.log(nonAdjacentSum(nums)); // -> 1465
-// console.log(nonAdjacentSumrecur(nums));
+console.log(nonAdjacentSum(nums)); // -> 1465
+console.log(nonAdjacentSumrecur(nums));
