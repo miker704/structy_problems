@@ -25,7 +25,10 @@ Solve this recursively.
 //optimized method using memoization
 
 const fib = (n, hash = {}) => {
-
+    if (n in hash) { return hash[n] };
+    if (n === 0 || n === 1) { return n; }
+    hash[n] = fib(n - 2, hash) + fib(n - 1, hash);
+    return hash[n];
 }
 
 
