@@ -9,11 +9,30 @@
 const longestPath = (graph) => {
     // todo
 
-
+    let maxPath = 0;
+    let hash = {};
+    for (let node in graph) {
+        if (graph[node].length === 0) {
+            hash[node] = 0;
+        }
+    }
+    for (let node in graph) {
+        maxPath = Math.max(hasPath(graph, hash, node), maxPath);
+    }
+    return maxPath;
 };
 
 const hasPath = (graph, hash, node) => {
+    if (node in hash) { return hash[node]; }
+    let size = 0;
+    for (let currNode of graph[node]) {
 
+        let curr = hasPath(graph, hash, currNode);
+        if (curr > size) { size = curr; }
+
+    }
+    hash[node] = size + 1;
+    return hash[node];
 }
 
 
