@@ -73,7 +73,17 @@
 // # but this time each level can only have a*n # of nodes max
 
 const sumPossible = (amount, array, hash = {}) => {
-    
+    if (amount in hash) { return hash[amount]; }
+    if (amount === 0) { return true; }
+    if (amount < 0) { return false; }
+    for (let num of array) {
+        if (sumPossible(amount - num, array, hash)) {
+            hash[amount] = true;
+            return true;
+        }
+    }
+    hash[amount] = false;
+    return hash[amount];
 }
 
 
