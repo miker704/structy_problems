@@ -14,19 +14,48 @@
 
 const semestersRequired = (numCourses, prereqs) => {
     // todo
+    let graph = buildGraph(numCourses, prereqs);
+    let numberOfSemesters = 0;
+    let minSemesters = 0;
+    let semesterHash = {};
+    for (let course in graph) {
+        if (graph[course].length === 0) { semesterHash[course] = 1; }
+    }
 
+    for (let courseId in graph) {
+        numberOfSemesters = _semestersRequired(graph, semesterHash, courseId);
+        minSemesters = Math.max(minSemesters, numberOfSemesters);
+    }
+
+    return minSemesters;
 };
 
 const _semestersRequired = (graph, semesterHash, courseId) => {
-
+    if (courseId in semesterHash) {
+        return semesterHash[courseId];
+    }
+    let num = 0;
+    for (let course of graph[courseId]) {
+        let dist = _semestersRequired(graph, semesterHash, course);
+        if (dist > num) { num = dist; }
+    }
+    semesterHash[courseId] = num + 1;
+    return semesterHash[courseId];
 };
 
 
 
 
 const buildGraph = (numCourses, prereqs) => {
-
-    
+    let graph = {};
+    for (let i = 0; i < numCourses; i++) {
+        graph[i] = [];
+    }
+    for (let course of prereqs) {
+        let [x, y] = [course[0], course[1]];
+        graph[x].push(y);
+    }
+    return graph;
 }
 
 
