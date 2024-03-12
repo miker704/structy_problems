@@ -11,8 +11,11 @@
 // Solve this recursively.
 
 const tribonacci = (n, hash = {}) => {
-    
-
+    if (n in hash) { return hash[n]; }
+    if (n === 0 || n == 1) { return 0; }
+    if (n === 2) { return 1; }
+    hash[n] = tribonacci(n - 3, hash) + tribonacci(n - 2, hash) + tribonacci(n - 1, hash);
+    return hash[n];
 }
 
 
