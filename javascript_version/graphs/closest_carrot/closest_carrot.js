@@ -56,6 +56,29 @@ start at start pos (startRow and startCol)
 //refactored
 const closestCarrot = (grid, startRow, startCol) => {
 
+    let queue = [[startRow, startCol, 0]];
+    let visited = new Set([startRow + ',' + startCol]);
+    let moveSet = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+    while (queue.length !== 0) {
+        let [currRow, currCol, currResult] = queue.shift();
+
+        if (grid[currRow][currCol] === "C") {
+            return currResult;
+        }
+        for (let move of moveSet) {
+            let posStr = `${currRow + move[0]},${currCol + move[1]}`;
+            let pos = [currRow + move[0], currCol + move[1]];
+            let rBound = 0 <= pos[0] && pos[0] < grid.length;
+            let cBound = 0 <= pos[1] && pos[1] < grid[0].length;
+            if (!visited.has(posStr) && (rBound && cBound) && grid[pos[0]][pos[1]] !== "X") {
+                queue.push([pos[0], pos[1], currResult + 1]);
+                visited.add(posStr);
+            }
+        }
+
+    }
+
+    return -1;
 };
 
 
