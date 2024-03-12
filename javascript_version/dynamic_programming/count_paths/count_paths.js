@@ -42,107 +42,126 @@ directions possible  = {right and down only}
 
 // }
 
-//optimized method using memoization runs at O(r*c) space complexity O(r*c)
+// one way to solve it using memoization runs at O(r*c) space complexity O(r*c)
+const countPaths2 = (grid, currRow = 0, currCol = 0, hash = {}) => {
 
-const countPaths = (grid, currRow = 0, currCol = 0, hash = {}) => {
-
-
-
-
+  let pos = `${currRow},${currCol}}`;
+  let rBound = 0 <= currRow && currRow < grid.length;
+  let cBound = 0 <= currCol && currCol < grid[0].length;
+  if (pos in hash) { return hash[pos]; }
+  if (!rBound || !cBound) { return 0; }
+  if (grid[currRow][currCol] === "X") { return 0; }
+  if (grid[currRow][currCol] === "O" && currRow === grid.length - 1 && currCol === grid[0].length - 1) {
+    return 1;
+  }
+  let dist = 0;
+  dist += countPaths(grid, currRow + 1, currCol, hash);
+  dist += countPaths(grid, currRow, currCol + 1, hash);
+  hash[pos] = dist;
+  return hash[pos];
 }
 
+//optimized method using memoization runs at O(r*c) space complexity O(r*c)
+// no excess code no conditonal checking
+const countPaths = (grid, currRow = 0, currCol = 0, hash = {}) => {
 
+  let pos = `${currRow},${currCol}}`;
+  if (pos in hash) { return hash[pos]; }
+  if (currRow === grid.length || currCol === grid[0].length || grid[currRow][currCol] === "X") { return 0; }
+  if (currRow === grid.length - 1 && currCol === grid[0].length - 1) {return 1;}
+  return hash[pos] = countPaths(grid, currRow + 1, currCol, hash) + countPaths(grid, currRow, currCol + 1, hash);;
+}
 
 let grid = [
-    ["O", "O"],
-    ["O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 2
+  ["O", "O"],
+  ["O", "O"],
+];
+console.log(countPaths(grid)); // -> 2
 
- grid = [
-    ["O", "O", "X"],
-    ["O", "O", "O"],
-    ["O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 5
-
-
-  grid = [
-    ["O", "O", "O"],
-    ["O", "O", "X"],
-    ["O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 3
+grid = [
+  ["O", "O", "X"],
+  ["O", "O", "O"],
+  ["O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 5
 
 
-  grid = [
-    ["O", "O", "O"],
-    ["O", "X", "X"],
-    ["O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 1
+grid = [
+  ["O", "O", "O"],
+  ["O", "O", "X"],
+  ["O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 3
 
-  grid = [
-    ["O", "O", "X", "O", "O", "O"],
-    ["O", "O", "X", "O", "O", "O"],
-    ["X", "O", "X", "O", "O", "O"],
-    ["X", "X", "X", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 0
 
-  grid = [
-    ["O", "O", "X", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "X"],
-    ["X", "O", "O", "O", "O", "O"],
-    ["X", "X", "X", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 42
+grid = [
+  ["O", "O", "O"],
+  ["O", "X", "X"],
+  ["O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 1
 
-  grid = [
-    ["O", "O", "X", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "X"],
-    ["X", "O", "O", "O", "O", "O"],
-    ["X", "X", "X", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "X"],
-  ];
-  console.log(countPaths(grid)); // -> 0
+grid = [
+  ["O", "O", "X", "O", "O", "O"],
+  ["O", "O", "X", "O", "O", "O"],
+  ["X", "O", "X", "O", "O", "O"],
+  ["X", "X", "X", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 0
 
-  grid = [
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 40116600
+grid = [
+  ["O", "O", "X", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "X"],
+  ["X", "O", "O", "O", "O", "O"],
+  ["X", "X", "X", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 42
 
-  grid = [
-    ["O", "O", "X", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "X", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
-    ["X", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
-    ["X", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "X", "X", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "X", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
-    ["X", "X", "X", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "X", "X", "O", "O", "O", "O", "X", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "X", "X", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
-  ];
-  console.log(countPaths(grid)); // -> 3190434
+grid = [
+  ["O", "O", "X", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "X"],
+  ["X", "O", "O", "O", "O", "O"],
+  ["X", "X", "X", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "X"],
+];
+console.log(countPaths(grid)); // -> 0
+
+grid = [
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 40116600
+
+grid = [
+  ["O", "O", "X", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "X", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "X", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
+  ["X", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O", "O"],
+  ["X", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "X", "X", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "X", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
+  ["X", "X", "X", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "X", "X", "O", "O", "O", "O", "X", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "X", "X", "O", "O", "O", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
+  ["O", "O", "O", "O", "O", "O", "O", "O", "X", "O", "O", "O", "O", "O", "O"],
+];
+console.log(countPaths(grid)); // -> 3190434
