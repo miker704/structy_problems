@@ -98,8 +98,11 @@
 // r is the number of rows and c is the number of columns in the 2d array space complixity is O(r*c)
 
 const maxPathSum = (grid, row = 0, col = 0, hash = {}) => {
-
-    
+    let pos = `${row},${col}`;
+    if (pos in hash) { return hash[pos]; }
+    if (row === grid.length || col === grid[0].length) { return 0; }
+    if (row === grid.length - 1 && col === grid[0].length - 1) { return grid[row][col]; }
+    return hash[pos] = grid[row][col] + Math.max(maxPathSum(grid, row + 1, col, hash), maxPathSum(grid, row, col + 1, hash));
 }
 
 
