@@ -74,10 +74,40 @@
 
 const knightAttack = (n, kr, kc, pr, pc) => {
 
+    let queue = [[kr, kc, 0]];
+    let visited = new Set();
+    while (queue.length !== 0) {
+        let [currX, currY, numMoves] = queue.shift();
+        let currPos = `${currX},${currY}`;
+        if (currX === pr && currY === pc) {
+            return numMoves;
+        }
+        let currentMoveSet = getHorseyMoves(n, currX, currY);
+        for (let move of currentMoveSet) {
+            let [nextX, nextY] = move;
+            let newPos = `${nextX},${nextY}`;
+            if (!visited.has(newPos)) {
+                queue.push([nextX, nextY, numMoves + 1]);
+                visited.add(newPos);
+            }
+        }
+    }
+    return -1;
 }
 
 const getHorseyMoves = (n, kr, kc) => {
+    let horseMoveSet = [
+        [kr + -2, kc + 1], [kr + -2, kc + -1], [kr + 2, kc + 1], [kr + 2, kc + -1], [kr + -1, kc + 2], [kr + 1, kc + 2], [kr + -1, kc + -2], [kr + 1, kc + -2]
+    ];
+    let validHorseyMoves = [];
+    for (let move of horseMoveSet) {
+        let [movX, movY] = move;
+        let rBound = 0 <= movX && movX < n;
+        let cBound = 0 <= movY && movY < n;
+        if (rBound && cBound) { validHorseyMoves.push(move); }
+    }
 
+    return validHorseyMoves;
 }
 
 
