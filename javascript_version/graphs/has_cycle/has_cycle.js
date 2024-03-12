@@ -7,14 +7,37 @@
 
 
 const hasCycle = (graph) => {
+    let black = new Set();
+    let result = false;
+    for (let node in graph) {
+        if (_hasCycle(graph, new Set(), black, node) === true) {
+            return true;
+        }
+    }
 
-
+    return result;
 };
 
 
 const _hasCycle = (graph, grey, black, node) => {
 
 
+    if (grey.has(node) === true) {
+        return true;
+    }
+    grey.add(node);
+    if (black.has(node) === true) {
+        return false;
+    }
+
+    for (let pos of graph[node]) {
+        if (_hasCycle(graph, grey, black, pos) === true) {
+            return true;
+        }
+    }
+    grey.delete(node);
+    black.add(node);
+    return false;
 }
 
 console.log(hasCycle({
