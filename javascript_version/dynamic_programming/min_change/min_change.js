@@ -94,9 +94,9 @@ const minChange1 = (amount, coins) => {
 // const minChange = (amount, coins) => {
 
 //     if(amount === 0){return 0;}
-  
+
 //   let min_change = Number.MAX_SAFE_INTEGER;
-  
+
 //   for(let coin of coins){
 //     if(coin <= amount){
 //       let sub = minChange(amount-coin,coins);
@@ -111,8 +111,8 @@ const minChange1 = (amount, coins) => {
 //   else{
 //     return min_change;
 //   }
-  
-      
+
+
 
 // }
 
@@ -130,9 +130,9 @@ const minChange1 = (amount, coins) => {
 //     if(amount === 0){return 0;}
 //     if(amount < 0){return -1;}
 //     if(amount in hash){return hash[amount];}
-  
+
 //   let min_change = Number.MAX_SAFE_INTEGER;
-  
+
 //   for(let coin of coins){
 //     if(coin <= amount){
 //       let sub = minChange(amount-coin,coins,hash);
@@ -153,19 +153,28 @@ const minChange1 = (amount, coins) => {
 //   else{
 //     return min_change;
 //   }
-  
+
 
 // }
 
 //further optimized recursive method runs at the same time complexity of O(amount*coins.length) with space complexity of
 // O(amount) ('O(n)') for the hash table of the size of amount this method uses built in functions to make the code more readable
-const minChange = (amount,coins,hash={})=>{
-
+const minChange = (amount, coins, hash = {}) => {
+    let numOfCoins =  _minChange(amount, coins, {});
+    return numOfCoins === Infinity ? -1 : numOfCoins;
 }
-const _minChange = (amount,coins, hash ={}) => {
+const _minChange = (amount, coins, hash = {}) => {
 
-
-
+    if (amount === 0) { return 0; }
+    if (amount < 0) { return Infinity; }
+    if (amount in hash) { return hash[amount]; }
+    let min = Infinity;
+    for (let coin of coins) {
+        let temp = 1 +_minChange(amount - coin, coins, hash);
+        min = Math.min(min, temp);
+    }
+    hash[amount] = min;
+    return hash[amount];
 }
 
 
