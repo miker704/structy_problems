@@ -125,11 +125,20 @@
 
 // }
 
-const countingChange = (amount, coins, idx = 0,hash ={}) => {
-
-
-    
-
+const countingChange = (amount, coins, idx = 0, hash = {}) => {
+    let key = `${amount},${coins[idx]}`;
+    if (key in hash) { return hash[key]; }
+    if (idx > coins.length) { return 0; }
+    if (amount === 0) { return 1; }
+    if (amount < 0) { return 0; }
+    let coinCount = 0;
+    for (let qty = 0; (qty * coins[idx]) <= amount; qty++) {
+        let currTotal = qty * coins[idx];
+        let curr = countingChange(amount - currTotal, coins, idx + 1, hash);
+        coinCount += curr;
+    }
+    hash[key] = coinCount;
+    return hash[key];
 }
 
 
