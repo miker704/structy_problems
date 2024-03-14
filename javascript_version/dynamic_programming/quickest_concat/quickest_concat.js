@@ -6,12 +6,27 @@
 
 const quickestConcat = (s, words) => {
 
+    let result = _quickestConcat(s, words, {})
+    return result === Infinity ? -1 : result;
 };
 
 
 
 const _quickestConcat = (s, words, hash) => {
 
+    if (s in hash) { return hash[s]; }
+    if (s.length === 0) { return 0; }
+
+    let min = Infinity;
+    for (let word of words) {
+        if (s.startsWith(word)) {
+            let cut = s.slice(word.length);
+            let temp = 1 + _quickestConcat(cut, words, hash);
+            min = Math.min(temp, min);
+        }
+    }
+    hash[s] = min;
+    return hash[s];
 };
 
 console.log(quickestConcat('caution', ['ca', 'ion', 'caut', 'ut'])); // -> 2
