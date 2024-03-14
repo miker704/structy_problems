@@ -14,8 +14,22 @@
 
 
 const nestingScore = (str) => {
+    let stack = [0];
+    let score = 0;
+    for (let s of str) {
+        if (s === "[") {
+            stack.push(0);
+        }
+        else {
+            let temp = stack.pop();
+            if (temp === 0) { stack[stack.length - 1] += 1; }
+            else {
+                stack[stack.length - 1] += 2 * temp;
+            }
+        }
+    }
 
-
+    return stack[0];
 };
 
 
