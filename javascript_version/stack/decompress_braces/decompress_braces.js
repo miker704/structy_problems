@@ -10,11 +10,59 @@
 // You may assume that the input is valid and the decompressed string
 //  will only contain alphabetic characters.
 
+// const decompressBraces = (s) => {
+
+//     let stack = [];
+//     let numbers = "0123456789";
+//     let result = "";
+//     for (let i = 0; i < s.length; i++) {
+//         if (s[i] === "}") {
+//             let x = stack.length - 1;
+//             let temp = "";
+//             while (stack[x] !== "{") {
+//                 temp = stack.pop() + temp;
+//                 x--;
+//             }
+//             stack.pop();
+//             let num = parseInt(stack.pop());
+//             temp = temp.repeat(num);
+//             stack.push(temp);
+//         }
+
+//         if (s[i]!=="}") {
+//             stack.push(s[i]);
+//         }
+//     }
+//     return stack.join("");
+// };
+
+//another way to do this
 const decompressBraces = (s) => {
 
+    let stack = [];
+    let numbers = "0123456789";
+    let result = "";
+    for (let i = 0; i < s.length; i++) {
+        if (numbers.includes(s[i])) {
+            stack.push(parseInt(s[i]));
+        }
+        else {
+            if (s[i] === "}") {
+                let temp = "";
+                while (typeof stack[stack.length - 1] !== 'number') {
+                    temp = stack.pop() + temp;
+                }
+                let num = stack.pop();
+                stack.push(temp.repeat(num));
+            }
 
+            else if (s[i] !== "{") {
+                stack.push(s[i]);
+            }
+        }
+    }
+    return stack.join("");
 };
-
 
 
 console.log(decompressBraces("2{q}3{tu}v"));
