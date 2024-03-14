@@ -61,16 +61,20 @@
 
 
 
-const arrayStepper1 = (nums) => {
-
-
-}
 
 
 
 const arrayStepper = (nums, idx = 0, hash = {}) => {
-
-
+    if(idx in hash){return hash[idx];}
+    if (idx === nums.length-1) { return true; }
+    for (let i = 1; i <= nums[idx]; i++) {
+        if(arrayStepper(nums, idx + i, hash)){
+            hash[idx] = true;
+            return true;
+        }
+    }
+    hash[idx] = false;
+    return false;
 }
 
 
