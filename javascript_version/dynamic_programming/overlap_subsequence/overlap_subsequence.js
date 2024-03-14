@@ -7,14 +7,21 @@
 
 const overlapSubsequence = (str1, str2) => {
     // todo
-
+    return _overlapSubsequence(str1, str2, 0, str1.length - 1, 0, str2.length - 1, {});
 };
 
 
 const _overlapSubsequence = (str1, str2, i = 0, j = str1.length - 1, k = 0, l = str2.length - 1, hash = {}) => {
-
-
-
+    let key = `${i},${k}`;
+    if (key in hash) { return hash[key]; }
+    if (i > str1.length - 1 || k > str2.length - 1) { return 0; }
+    if (str1[i] === str2[k]) {
+        return 1 + _overlapSubsequence(str1, str2, i + 1, j, k + 1, l, hash);
+    }
+    hash[key] = Math.max(
+        _overlapSubsequence(str1, str2, i + 1, j, k, l, hash),
+        _overlapSubsequence(str1, str2, i, j, k + 1, l, hash));
+    return hash[key];
 }
 
 
