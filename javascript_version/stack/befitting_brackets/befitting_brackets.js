@@ -11,7 +11,25 @@
 
 
 const befittingBrackets = (str) => {
-
+    if (str.length === 0) { return true; }
+    let bracketPairing = {
+        '(': ')',
+        '{': '}',
+        '[': ']',
+    }
+    let stack = [];
+    for (let s of str) {
+        if (s in bracketPairing) {
+            stack.unshift(bracketPairing[s]);
+        }
+        else if (stack.length> 0 && stack[0] === s) {
+            stack.shift();
+        }
+        else{
+            return false;
+        }
+    }
+    return stack.length === 0 ? true : false;
 };
 
 
