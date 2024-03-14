@@ -187,7 +187,19 @@ let array = new Array();
 // }
 //another way to do this problem
 const maxPalinSubsequence = (str, i = 0, j = str.length - 1, hash = {}) => {
-
+    let key = `${i}${j}`;
+    if(key in hash){return hash[key];}
+    if (i === j) {
+        return 1;
+    }
+    if (i > j) { return 0; }
+    if (str[i] === str[j]) {
+        return 2 + maxPalinSubsequence(str, i + 1, j - 1, hash);
+    }
+    let takeLeft = maxPalinSubsequence(str, i + 1, j, hash);
+    let takeRight = maxPalinSubsequence(str, i, j - 1, hash);
+    hash[key] = Math.max(takeLeft, takeRight);
+    return hash[key];
 };
 
 console.log(maxPalinSubsequence("luwxult")); // -> 5
