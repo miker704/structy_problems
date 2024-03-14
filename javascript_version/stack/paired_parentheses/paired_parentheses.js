@@ -6,7 +6,16 @@
 
 
 const pairedParentheses = (str) => {
-
+    if (str.length === 0) { return true; }
+    let top = -1;
+    for (let s of str) {
+        if (s === '(') { top++; }
+        if (s === ')') {
+            if (top === -1) { return false; }
+            else { top--; }
+        }
+    }
+    return top === -1 ? true : false;
 };
 
 
