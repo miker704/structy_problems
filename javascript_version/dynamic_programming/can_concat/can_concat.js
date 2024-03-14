@@ -8,12 +8,25 @@
 
 const canConcat = (s, words) => {
     // todo
-
+    return _canConcat(s, words, {});
 };
 
 
 const _canConcat = (s, words, hash) => {
 
+    if (s in hash) { return hash[s]; }
+    if (s.length === 0) { return true; }
+    for (let word of words) {
+        if (s.startsWith(word)) {
+            let cut = s.slice(word.length);
+            if (_canConcat(cut, words, hash)) {
+                hash[s] = true;
+                return true;
+            }
+        }
+    }
+    hash[s] = false;
+    return false;
 }
 console.log(canConcat("oneisnone", ["one", "none", "is"])); // -> true
 console.log(canConcat("oneisnone", ["on", "e", "is"])); // -> false
