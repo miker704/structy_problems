@@ -1,8 +1,8 @@
-// create combinations
+// create subCombinations
 // Write a function, createCombinations, that takes in an vector and a size as arguments.
-//  The function should return a 2D vector representing all of the combinations of the specifized size.
+//  The function should return a 2D vector representing all of the subCombinations of the specifized size.
 
-// The items within the combinations and the combinations themselves may be returned in any order.
+// The items within the subCombinations and the subCombinations themselves may be returned in any order.
 
 // You may assume that the input vector contains unique elements and 1 <= k <= items.size()
 
@@ -10,8 +10,16 @@
 
 const createCombinations = (items, k) => {
     // todo
-
-
+    if (items.length < k) { return []; }
+    if (k === 0) { return [[]]; }
+    let first = items[0];
+    let subCombinations = createCombinations(items.slice(1), k - 1);
+    let result = [];
+    for (let sub of subCombinations) {
+        result.push([first, ...sub]);
+    }
+    let combinations = createCombinations(items.slice(1), k);
+    return [...result, ...combinations];
 };
 
 
