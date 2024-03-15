@@ -9,11 +9,19 @@
 
 const permutations = (items) => {
     // todo
-    
-
+    if (items.length === 0) { return [[]]; }
+    return _permutations(items);
 };
 const _permutations = (items) => {
-
+    if (items.length === 0) { return [[]]; }
+    let first = items[0];
+    let result = [];
+    for (let perm of _permutations(items.slice(1))) {
+        for (let i = 0; i <= perm.length; i++) {
+            result.push([...perm.slice(0, i), first, ...perm.slice(i)]);
+        }
+    }
+    return result;
 };
 
 
@@ -27,12 +35,12 @@ console.log(permutations(['a', 'b', 'c'])); // ->
 //   [ 'c', 'a', 'b' ], 
 //   [ 'c', 'b', 'a' ] 
 // ] 
-// console.log(permutations(['red', 'blue'])); // ->
+console.log(permutations(['red', 'blue'])); // ->
 // [ 
 //   [ 'red', 'blue' ], 
 //   [ 'blue', 'red' ] 
 // ]
-// console.log(permutations([8, 2, 1, 4])); // ->
+console.log(permutations([8, 2, 1, 4])); // ->
 // [ 
 //   [ 8, 2, 1, 4 ], [ 2, 8, 1, 4 ], 
 //   [ 2, 1, 8, 4 ], [ 2, 1, 4, 8 ], 
@@ -47,7 +55,7 @@ console.log(permutations(['a', 'b', 'c'])); // ->
 //   [ 8, 4, 1, 2 ], [ 4, 8, 1, 2 ], 
 //   [ 4, 1, 8, 2 ], [ 4, 1, 2, 8 ] 
 // ] 
-// console.log(permutations([])); // ->
+console.log(permutations([])); // ->
 // [
 //  [ ]
 // ]
