@@ -7,11 +7,30 @@
 // You may assume that the input vector contains unique elements.
 
 
+// const subsets = (elements) => {
+//     // todo
+//     if (elements.length === 0) { return [[]]; }
+//     let first = elements[0];
+//     let withoutFirst = subsets(elements.slice(1));
+//     let results = [];
+//     for (let subArray of withoutFirst) {
+//         results.push(subArray);
+//         let temp = Array.from(subArray);
+//         temp.push(first);
+//         temp.reverse();
+//         results.push(temp);
+//     }
+//     return results;
+// };
+//another way to do this
 const subsets = (elements) => {
     // todo
-
+    if (elements.length === 0) { return [[]]; }
+    let first = elements[0];
+    let withoutFirst = subsets(elements.slice(1));
+    let combinedSets = withoutFirst.map(elems => [first, ...elems]);
+    return [...combinedSets, ...withoutFirst];
 };
-
 
 console.log(subsets(['a', 'b'])); // ->
 // [
