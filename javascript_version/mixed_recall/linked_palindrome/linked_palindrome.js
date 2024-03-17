@@ -13,11 +13,19 @@ class Node {
 
 const linkedPalindrome = (head) => {
     // todo
-
+    if (head === null) { return true; }
+    let array = [];
+    let curr = head;
+    while (curr !== null) {
+        array.push(curr.val);
+        curr = curr.next;
+    }
+    return isPalindrome(array);
 };
 
 
 const isPalindrome = (array) => {
+    return array.join(",") === array.reverse().join(",");
 }
 
 
