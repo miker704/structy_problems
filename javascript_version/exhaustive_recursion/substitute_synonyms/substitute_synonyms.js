@@ -12,10 +12,35 @@
 
 const substituteSynonyms = (sentence, synonyms) => {
 
+    let result = [];
+    let words = sentence.split(" ");
+    let sentences = createSentence(words, synonyms);
+    for (let sent of sentences) {
+        result.push(sent.join(" "));
+    }
+    return result;
 
 };
 
 const createSentence = (words, synonyms) => {
+    if (words.length === 0) { return [[]]; }
+
+    let first = words[0];
+    let remainder = words.slice(1);
+    let results = [];
+    if (first in synonyms) {
+        let suffixes = createSentence(remainder, synonyms);
+        for (let synonym of synonyms[first]) {
+            results.push(...suffixes.map((suff) => [synonym, ...suff]));
+        }
+        return results;
+    }
+    else {
+        let suffixes = createSentence(remainder, synonyms);
+        return suffixes.map((suffix) => [first, ...suffix]);
+    }
+
+
 
 }
 
