@@ -15,8 +15,15 @@ class Node {
 // # Space: O(n)
 const linkedListCycleSet = (head) => {
     // todo
-
-
+    if (head === null) { return false; }
+    let set = new Set();
+    let curr = head;
+    while (curr !== null) {
+        if (set.has(curr)) { return true; }
+        set.add(curr);
+        curr = curr.next;
+    }
+    return false;
 };
 
 
@@ -28,7 +35,17 @@ const linkedListCycleSet = (head) => {
 
 const linkedListCycleDualPointers = (head) => {
     // todo
-
+    if (head === null) { return false; }
+    let slow = head;
+    let fast = head;
+    let firstLoopBack = true;
+    while (fast !== null && fast.next !== null) {
+        if (fast === slow && firstLoopBack === false) { return true; }
+        slow = slow.next;
+        fast = fast.next.next;
+        firstLoopBack = false;
+    }
+    return false;
 };
 
 const a = new Node('a');
