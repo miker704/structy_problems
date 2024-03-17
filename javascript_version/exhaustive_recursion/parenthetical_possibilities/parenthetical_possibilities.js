@@ -20,28 +20,49 @@ once
 
 const parentheticalPossibilities = (s) => {
 
-  };
-  
-  const _getOptions = (s) => {
+  if (s.length === 0) { return ['']; }
 
-  
+  let { remaining, chars } = _getOptions(s);
+  let suffixes = parentheticalPossibilities(remaining);
+  let result = [];
+  for (let c of chars) {
+    for (let suffix of suffixes) {
+      result.push(c + suffix);
+    }
   }
-  console.log(parentheticalPossibilities('x(mn)yz')); // -> 
-  // [ 'xmyz', 'xnyz' ]
-  console.log(parentheticalPossibilities("(qr)ab(stu)c")); // ->
-  // [ 'qabsc', 'qabtc', 'qabuc', 'rabsc', 'rabtc', 'rabuc' ]
-  console.log(parentheticalPossibilities("taco")); // ->
-  // ['taco']
-  console.log(parentheticalPossibilities("")); // ->
-  // ['']
-  console.log(parentheticalPossibilities("(etc)(blvd)(cat)")); // ->
-  // [
-  //  'ebc', 'eba', 'ebt', 'elc', 'ela',
-  //  'elt', 'evc', 'eva', 'evt', 'edc',
-  //  'eda', 'edt', 'tbc', 'tba', 'tbt',
-  //  'tlc', 'tla', 'tlt', 'tvc', 'tva',
-  //  'tvt', 'tdc', 'tda', 'tdt', 'cbc',
-  //  'cba', 'cbt', 'clc', 'cla', 'clt',
-  //  'cvc', 'cva', 'cvt', 'cdc', 'cda',
-  //  'cdt'
-  // ]
+  return result;
+};
+
+const _getOptions = (s) => {
+
+  if (s[0] === "(") {
+    let endOption = s.indexOf(")");
+    let chars = s.slice(1, endOption).split("");
+    let remaining = s.slice(endOption + 1);
+    return { remaining, chars };
+  }
+  else {
+    let remaining = s.slice(1);
+    let chars = [s[0]];
+    return { remaining, chars };
+  }
+}
+console.log(parentheticalPossibilities('x(mn)yz')); // -> 
+// [ 'xmyz', 'xnyz' ]
+console.log(parentheticalPossibilities("(qr)ab(stu)c")); // ->
+// [ 'qabsc', 'qabtc', 'qabuc', 'rabsc', 'rabtc', 'rabuc' ]
+console.log(parentheticalPossibilities("taco")); // ->
+// ['taco']
+console.log(parentheticalPossibilities("")); // ->
+// ['']
+console.log(parentheticalPossibilities("(etc)(blvd)(cat)")); // ->
+// [
+//  'ebc', 'eba', 'ebt', 'elc', 'ela',
+//  'elt', 'evc', 'eva', 'evt', 'edc',
+//  'eda', 'edt', 'tbc', 'tba', 'tbt',
+//  'tlc', 'tla', 'tlt', 'tvc', 'tva',
+//  'tvt', 'tdc', 'tda', 'tdt', 'cbc',
+//  'cba', 'cbt', 'clc', 'cla', 'clt',
+//  'cvc', 'cva', 'cvt', 'cdc', 'cda',
+//  'cdt'
+// ]
