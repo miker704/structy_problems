@@ -19,15 +19,26 @@ n = number of nodes
 Time: O(n)
 Space: O(n)*/
 const middleValueArray = (head) => {
-
-
+    let result = [];
+    let curr = head;
+    while (curr !== null) {
+        result.push(curr.val);
+        curr = curr.next;
+    }
+    return result[Math.floor(result.length / 2)];
 };
 
 /*n = number of nodes
 Time: O(n)
 Space: O(1)*/
 const middleValueDualPointers = (head) => {
-
+    let slow = head;
+    let fast = head;
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow.val;
 };
 
 
