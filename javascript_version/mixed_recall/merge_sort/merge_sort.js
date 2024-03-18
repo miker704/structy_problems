@@ -47,11 +47,29 @@
 
 
 const mergeSort = (nums) => {
-
+    if (nums.length <= 1) { return nums; }
+    let middle = Math.floor(nums.length / 2);
+    let left = mergeSort(nums.slice(0, middle));
+    let right = mergeSort(nums.slice(middle));
+    return merge(left, right);
 }
 
 const merge = (left, right) => {
-
+    let merged = [];
+    // for js we can reverse it and pop it  or not reverse and just shift it  or we can assign i and j and do it the classic way
+    // left.reverse();
+    // right.reverse();
+    while (left.length > 0 && right.length > 0) {
+        if(left[0] > right[0]){
+            merged.push(right.shift());
+        }
+        else{
+            merged.push(left.shift());
+        }
+    }
+    merged.push(...left);
+    merged.push(...right);
+    return merged;
 }
 
 
