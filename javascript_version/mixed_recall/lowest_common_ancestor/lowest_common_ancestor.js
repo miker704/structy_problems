@@ -18,13 +18,27 @@ class Node {
 
 const lowestCommonAncestor = (root, val1, val2) => {
     // todo
-
+    if (root === null) { return null; }
+    let val1Path = getPath(root, val1);
+    let val2Path = getPath(root, val2);
+    let visited = new Set(val1Path);
+    for (let node of val2Path) {
+        if (visited.has(node)) {
+            return node;
+        }
+    }
 
 };
 
 
 const getPath = (root, val) => {
-
+    if (root === null) { return null; }
+    if (root.val === val) { return [root.val]; }
+    let left = getPath(root.left, val);
+    if (left !== null) { left.push(root.val); return left; }
+    let right = getPath(root.right, val);
+    if (right !== null) { right.push(root.val); return right; }
+    return null;
 
 }
 
