@@ -25,11 +25,24 @@
 // the same flower type in adjacent positions.
 
 const positioningPlants = (costs) => {
+    if (costs.length === 0) { return 0; }
+    return _positioningPlants(costs, {}, 0, null);
 
 };
 
 const _positioningPlants = (costs, hash, pos, lastPos) => {
-
+    let key = `${pos},${lastPos}`;
+    if (key in hash) { return hash[key]; }
+    if (pos === costs.length) { return 0; }
+    let min = Infinity;
+    for (let plant = 0; plant < costs[pos].length; plant++) {
+        if (plant !== lastPos) {
+            let attempt = costs[pos][plant] + _positioningPlants(costs, hash, pos + 1, plant);
+            min = Math.min(min, attempt);
+        }
+    }
+    hash[key] = min;
+    return min;
 };
 
 
