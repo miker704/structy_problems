@@ -25,8 +25,27 @@
 // The function should return a number representing how many ways you can move out of bounds.
 
 const breakingBoundaries = (m, n, k, r, c) => {
+    return _breakingBoundaries(m, n, k, r, c, {});
 };
 const _breakingBoundaries = (m, n, k, r, c, hash) => {
+    let pos = `${k},${r},${c}`;
+    if (pos in hash) { return hash[pos]; }
+
+    let rBound = 0 <= r && r < m;
+    let cBound = 0 <= c && c < n;
+    if (!cBound || !rBound) { return 1; }
+    if (k === 0) {
+        if (!cBound || !rBound) { return 1; }
+        else{return 0;}
+    }
+
+    let dist = 0;
+    dist += _breakingBoundaries(m, n, k - 1, r + 1, c, hash);
+    dist += _breakingBoundaries(m, n, k - 1, r - 1, c, hash);
+    dist += _breakingBoundaries(m, n, k - 1, r, c + 1, hash);
+    dist += _breakingBoundaries(m, n, k - 1, r, c - 1, hash);
+
+    return hash[pos] = dist;
 
 };
 console.log(breakingBoundaries(3, 4, 2, 0, 0));// -> 4
