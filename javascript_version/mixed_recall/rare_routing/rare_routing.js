@@ -38,16 +38,34 @@
 
 
 const rareRouting = (n, roads) => {
-
+    let visited = new Set();
+    let graph = buildGraph(n, roads);
+    let check = roadPathCheck(graph, visited, 0, -1);
+    return check && visited.size === n;
 };
 
 const buildGraph = (n, roads) => {
-
+    let graph = {};
+    for (let i = 0; i < n; i++) {
+        graph[i] = [];
+    }
+    for (let road of roads) {
+        graph[road[0]].push(road[1]);
+        graph[road[1]].push(road[0]);
+    }
+    return graph;
 };
 
 
 const roadPathCheck = (graph, visited, node, previousNode) => {
+    if (visited.has(node)) { return false; }
+    visited.add(node);
+    for (let currRoad of graph[node]) {
+        if (previousNode !== currRoad)
 
+            if (roadPathCheck(graph, visited, currRoad, node) === false) { return false; }
+    }
+    return true;
 };
 
 
