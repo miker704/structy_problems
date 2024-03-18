@@ -23,12 +23,23 @@
 
 const canColor = (graph) => {
     // todo
-
+    let colorMapping = {};
+    for (let node in graph) {
+        if (!(node in colorMapping) && !parseGraph(graph, colorMapping, node, true)) { return false; }
+    }
+    return true;
 };
 
 
 const parseGraph = (graph, colorMapping, node, currColor) => {
-    
+    if (node in colorMapping) { return currColor === colorMapping[node]; }
+    colorMapping[node] = currColor;
+    for (let currNode of graph[node]) {
+        if (!parseGraph(graph, colorMapping, currNode, !currColor)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
