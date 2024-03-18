@@ -14,10 +14,17 @@ class Node {
 
 const flipTree = (root) => {
     // todo
+    if (root === null) { return null; }
+    return inorderPrint(_flipTree(root));
 };
 
 const _flipTree = (root) => {
-    
+    if (root === null) { return null; }
+    let leftSubtree = _flipTree(root.left);
+    let rightSubtree = _flipTree(root.right);
+    root.left = rightSubtree;
+    root.right = leftSubtree;
+    return root;
 }
 
 const inorderPrint = (root) => {
