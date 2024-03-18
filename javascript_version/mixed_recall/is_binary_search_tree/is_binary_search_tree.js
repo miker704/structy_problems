@@ -19,16 +19,24 @@ class Node {
 
 const isBinarySearchTree = (root) => {
     // todo
-
+    if (root === null) { return false; }
+    return isSorted(inOrderTraversal(root));
 };
 
 
 const inOrderTraversal = (root) => {
-
+    if (root === null) { return []; }
+    let left = inOrderTraversal(root.left);
+    let right = inOrderTraversal(root.right);
+    return [...left, root.val, ...right];
 }
 
 const isSorted = (values) => {
-
+    if (values.length === 0) { return false; }
+    for (let i = 0; i < values.length - 1; i++) {
+        if (values[i] > values[i + 1]) { return false; }
+    }
+    return true;
 }
 
 const a = new Node(12);
