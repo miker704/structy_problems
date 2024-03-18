@@ -11,12 +11,38 @@
 
 const binarySearch = (numbers, target) => {
     // todo
+    let first = 0;
+    let last = numbers.length - 1;
+    let mid = Math.floor((first + last) / 2);
 
+    while (first <= last) {
+
+        if (numbers[mid] > target) {
+            last = mid - 1;
+        }
+        else if (numbers[mid] === target) {
+            return mid;
+        }
+        else if (numbers[mid] < target) {
+            first = mid + 1;
+        }
+        mid = Math.floor((first + last) / 2);
+    }
+
+    return -1;
 };
 
 
 const recursiveBinarySearch = (numbers, target) => {
-
+    if (numbers.length === 0) { return -1; }
+    let mid = Math.floor((numbers.length - 1) / 2);
+    if (numbers[mid] === target) { return mid; }
+    if (numbers[mid] > target) { return recursiveBinarySearch(numbers.slice(0, mid), target); }
+    if (numbers[mid] < target) {
+        let result = recursiveBinarySearch(numbers.slice(mid + 1), target);
+        if (result === -1) { return -1; }
+        return mid + 1 + result;
+    }
 
 
 };
