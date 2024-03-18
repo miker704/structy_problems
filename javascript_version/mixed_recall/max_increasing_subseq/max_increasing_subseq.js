@@ -8,30 +8,46 @@
 
 const maxIncreasingSubseq = (numbers) => {
     // todo
+    return _maxIncreasingSubseq(numbers, {}, 0, -Infinity);
 };
 
 const _maxIncreasingSubseq = (numbers, hash, i, prev) => {
-    
+    let key = `${i},${prev}`;
+    if (key in hash) { return hash[key]; }
+    if (i >= numbers.length) { return 0; }
+    let options = [];
+    let excluded = _maxIncreasingSubseq(numbers, hash, i + 1, prev);
+    options.push(excluded);
+    let taken = numbers[i];
+    let included = 0;
+    if (taken > prev) {
+        included = 1 + _maxIncreasingSubseq(numbers, hash, i + 1, taken);
+        options.push(included);
+    }
+    // hash[key] = Math.max(...options);
+    hash[key] = Math.max(excluded,included);
+
+    return hash[key];
 }
 
 
 let numbers = [4, 18, 20, 10, 12, 15, 19];
 console.log(maxIncreasingSubseq(numbers)); // -> 5
-numbers = [12, 9, 2, 5, 4, 32, 90, 20];
-console.log(maxIncreasingSubseq(numbers)); // -> 4
-numbers = [42, 50, 51, 60, 55, 70, 4, 5, 70];
-console.log(maxIncreasingSubseq(numbers)); // -> 5
-numbers = [7, 14, 10, 12];
-console.log(maxIncreasingSubseq(numbers)); // -> 3
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-console.log(maxIncreasingSubseq(numbers)); // -> 21
-numbers = [
-    1, 2, 3, 4, 5, 12, 6, 30, 7, 8, 9, 10, 11, 12, 13, 10, 18, 14, 15, 16, 17, 18, 19, 20, 21, 100,
-    104,
-];
-console.log(maxIncreasingSubseq(numbers)); // -> 23
-numbers = [
-    1, 2, 300, 3, 4, 305, 5, 12, 6, 30, 7, 8, 9, 10, 10, 10, 15, 11, 12, 13, 10, 18, 14, 15, 16,
-    17, 18, 19, 20, 21, 100, 101, 102, 103, 104, 105
-];
-console.log(maxIncreasingSubseq(numbers)); // -> 27
+// numbers = [12, 9, 2, 5, 4, 32, 90, 20];
+// console.log(maxIncreasingSubseq(numbers)); // -> 4
+// numbers = [42, 50, 51, 60, 55, 70, 4, 5, 70];
+// console.log(maxIncreasingSubseq(numbers)); // -> 5
+// numbers = [7, 14, 10, 12];
+// console.log(maxIncreasingSubseq(numbers)); // -> 3
+// numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+// console.log(maxIncreasingSubseq(numbers)); // -> 21
+// numbers = [
+//     1, 2, 3, 4, 5, 12, 6, 30, 7, 8, 9, 10, 11, 12, 13, 10, 18, 14, 15, 16, 17, 18, 19, 20, 21, 100,
+//     104,
+// ];
+// console.log(maxIncreasingSubseq(numbers)); // -> 23
+// numbers = [
+//     1, 2, 300, 3, 4, 305, 5, 12, 6, 30, 7, 8, 9, 10, 10, 10, 15, 11, 12, 13, 10, 18, 14, 15, 16,
+//     17, 18, 19, 20, 21, 100, 101, 102, 103, 104, 105
+// ];
+// console.log(maxIncreasingSubseq(numbers)); // -> 27
