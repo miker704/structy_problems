@@ -35,8 +35,7 @@ const _breakingBoundaries = (m, n, k, r, c, hash) => {
     let cBound = 0 <= c && c < n;
     if (!cBound || !rBound) { return 1; }
     if (k === 0) {
-        if (!cBound || !rBound) { return 1; }
-        else{return 0;}
+        return 0;
     }
 
     let dist = 0;
