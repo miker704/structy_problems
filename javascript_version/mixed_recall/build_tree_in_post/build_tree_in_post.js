@@ -17,7 +17,19 @@ class Node {
 
 const buildTreeInPost = (inOrder, postOrder) => {
     // todo
-
+    if (inOrder.length === 0) {
+        return null;
+    }
+    let value = postOrder[postOrder.length - 1];
+    let root = new Node(value);
+    let mid = inOrder.indexOf(value);
+    let inOrderLeft = inOrder.slice(0, mid);
+    let inOrderRight = inOrder.slice(mid + 1);
+    let postOrderLeft = postOrder.slice(0, inOrderLeft.length);
+    let postOrderRight = postOrder.slice(inOrderLeft.length, postOrder.length - 1);
+    root.left = buildTreeInPost(inOrderLeft, postOrderLeft);
+    root.right = buildTreeInPost(inOrderRight, postOrderRight);
+    return root;
 };
 
 
@@ -70,6 +82,6 @@ console.log(printInorder(buildTreeInPost(
     ['n', 'm'],
     ['m', 'n']
 )));
-  //     n
-  //      \
-  //       m
+//     n
+//      \
+//       m
