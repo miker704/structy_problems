@@ -16,11 +16,18 @@ class Node {
 
 const leftyNodes = (root) => {
     // todo
-
+    if (root === null) { return []; }
+    let leftNodes = grabLeftyNodes(root, 0, []);
+    return leftNodes;
 };
 
 
 const grabLeftyNodes = (root, level, leftValues) => {
+    if (root === null) { return []; }
+    if (leftValues.length === level) { leftValues.push(root.val); }
+    grabLeftyNodes(root.left, level + 1, leftValues);
+    grabLeftyNodes(root.right, level + 1, leftValues);
+    return leftValues;
 
 }
 
@@ -32,14 +39,23 @@ const _leftyNodes = (root) => {
 
 };
 const preorderPrint = (root) => {
-
+    if (root === null) { return null; }
+    console.log(`${root.val}`);
+    preorderPrint(root.left);
+    preorderPrint(root.right);
 
 }
 const inorder = (root) => {
-
+    if (root === null) { return null; }
+    inorder(root.left);
+    console.log(`${root.val}`);
+    inorder(root.right);
 }
 const inorderPrint = (root) => {
-
+    if (root === null) { return []; }
+    let left = inorderPrint(root.left);
+    let right = inorderPrint(root.right);
+    return [root.val, ...left, ...right];
 }
 
 
