@@ -22,6 +22,24 @@
 
 const combineIntervals = (intervals) => {
 
+    intervals = intervals.sort((a, b) => a[0] - b[0]);
+    let results = [intervals[0]];
+
+    for (let i = 1; i < intervals.length; i++) {
+        let lastInterval = results[results.length - 1];
+        let [lastA, lastB] = lastInterval;
+        let [currentIntervalA, currentIntervalB] = intervals[i];
+        if (lastB >= currentIntervalA) {
+            if (currentIntervalB > lastB) {
+                lastInterval[1] = currentIntervalB;
+            }
+        }
+        else {
+            results.push(intervals[i])
+        }
+    }
+    return results;
+
 };
 
 let intervals = [
@@ -77,4 +95,4 @@ intervals = [
     [72, 300000],
 ];
 console.log(combineIntervals(intervals));
-  // -> [ [12, 55], [62, 70], [72, 300000] ]
+// -> [ [12, 55], [62, 70], [72, 300000] ]
