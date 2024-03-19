@@ -11,10 +11,20 @@
 
 const detectDictionary = (dictionary, alphabet) => {
     // todo
-
+    for (let i = 0; i < dictionary.length - 1; i++) {
+        if (lexicalOrder(dictionary[i], dictionary[i + 1], alphabet) === false) { return false; }
+    }
+    return true;
 };
 const lexicalOrder = (word1, word2, alphabet) => {
-
+    let len = Math.max(word1.length, word2.length);
+    for (let i = 0; i < len; i++) {
+        let v1 = alphabet.indexOf(word1[i]);
+        let v2 = alphabet.indexOf(word2[i]);
+        if (v1 > v2) { return false; }
+        else if (v2 > v1) { return true; }
+    }
+    return true;
 }
 
 
