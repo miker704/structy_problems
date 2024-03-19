@@ -19,8 +19,17 @@ class Node {
 
 const buildTreeInPre = (inOrder, preOrder) => {
     // todo
-
-
+    if (inOrder.length === 0) { return null; }
+    let value = preOrder[0];
+    let root = new Node(value);
+    let mid = inOrder.indexOf(value);
+    let inOrderLeft = inOrder.slice(0, mid);
+    let inOrderRight = inOrder.slice(mid + 1);
+    let preOrderLeft = preOrder.slice(1, inOrderLeft.length + 1);
+    let preOrderRight = preOrder.slice(inOrderLeft.length + 1);
+    root.left = buildTreeInPre(inOrderLeft, preOrderLeft);
+    root.right = buildTreeInPre(inOrderRight, preOrderRight);
+    return root;
 
 };
 const printInorder = (root) => {
@@ -75,10 +84,10 @@ console.log(printInorder(buildTreeInPre(
     ['m', 'l', 'q', 'o', 'r', 'n', 's', 'p', 't'],
     ['l', 'm', 'n', 'o', 'q', 'r', 'p', 's', 't']
 )));
-  //        l
-  //     /     \
-  //    m       n
-  //         /    \
-  //         o     p
-  //        / \   / \
-  //       q   r s   t
+//        l
+//     /     \
+//    m       n
+//         /    \
+//         o     p
+//        / \   / \
+//       q   r s   t
