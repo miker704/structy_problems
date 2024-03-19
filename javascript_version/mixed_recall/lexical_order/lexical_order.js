@@ -37,7 +37,7 @@
 // };
 const lexicalOrder = (word1, word2, alphabet) => {
 
-    let len = word1.length > word2.length ? word1.length : word2.length;
+    let len = Math.max(word1.length, word2.length);
 
     for (let i = 0; i < len; i++) {
             let v1 = alphabet.indexOf(word1[i]);
