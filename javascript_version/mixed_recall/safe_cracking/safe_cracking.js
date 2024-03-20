@@ -13,11 +13,44 @@
 
 
 const buildGraph = (hints) => {
-
+    let graph = {};
+    for (let hint of hints) {
+        let [hintA, hintB] = hint;
+        if (!(hintA in graph)) { graph[hintA] = []; }
+        if (!(hintB in graph)) { graph[hintB] = []; }
+        graph[hintA].push(hintB);
+    }
+    return graph;
 }
 
 const safeCracking = (hints) => {
+    let graph = buildGraph(hints);
+    let parentCount = {};
+    let result = [];
+    let order = '';
 
+    for (let node in graph) { parentCount[node] = 0; }
+
+    for (let parentNode in graph) {
+        for (let childNode of graph[parentNode]) {
+            parentCount[childNode] += 1;
+        }
+    }
+
+    for (let node in parentCount) {
+        if (parentCount[node] === 0) { result.push(node); }
+    }
+    while (result.length !== 0) {
+        let node = result.pop();
+        order += node;
+        for (let childNode of graph[node]) {
+            parentCount[childNode] -= 1;
+            if (parentCount[childNode] === 0) {
+                result.push(childNode);
+            }
+        }
+    }
+    return order;
 };
 
 
