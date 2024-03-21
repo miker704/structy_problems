@@ -5,9 +5,30 @@
 // Tokens are enclosed in a pair of "$". You can assume that the input string 
 // is properly formatted. Tokens should be replaced from left to right in the string (see test_05)
 
-
+// two pointers method iterative  time and spacce both O(n)
 const tokenReplace = (s, tokens) => {
     // todo
+    if (s.length === 0) { return s; }
+    let i = 0;
+    let j = 1;
+    let output = "";
+    while (i < s.length) {
+        if (s[i] !== "$") {
+            output += s[i];
+            i++;
+            j = i + 1;
+        }
+        else if (s[j] !== "$") {
+            j++;
+        }
+        else {
+            let key = s.slice(i, j + 1);
+            output += tokens[key];
+            i = j + 1;
+            j = i + 1;
+        }
+    }
+    return output;
 
 };
 
