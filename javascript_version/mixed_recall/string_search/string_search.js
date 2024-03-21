@@ -11,16 +11,16 @@ const stringSearch = (grid, s) => {
 
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
-            if (parseGraph(grid, s, row, col, 0)) { return true; }
+            if (parseGraph(grid, s, row, col, new Set())) { return true; }
         }
     }
     return false;
 };
 
 
-const parseGraph = (grid, s, row, col, iter) => {
-    // console.log("grid pre :");
-    // console.table(grid);
+const parseGraph = (grid, s, row, col, visited) => {
+
+    let pos = `${row},${col}`;
     if (s === "") { return true; }
     let rBound = 0 <= row && row < grid.length;
     let cBound = 0 <= col && col < grid[0].length;
@@ -29,11 +29,13 @@ const parseGraph = (grid, s, row, col, iter) => {
     if (grid[row][col] !== character) {
         return false
     }
+    if(visited.has(pos)){return false;}
+    visited.add(pos);
     grid[row][col] = "*";
-    result = parseGraph(grid, s.slice(1), row + 1, col, iter) ||
-        parseGraph(grid, s.slice(1), row - 1, col, iter) ||
-        parseGraph(grid, s.slice(1), row, col + 1, iter) ||
-        parseGraph(grid, s.slice(1), row, col - 1, iter);
+    result = parseGraph(grid, s.slice(1), row + 1, col, visited) ||
+        parseGraph(grid, s.slice(1), row - 1, col, visited) ||
+        parseGraph(grid, s.slice(1), row, col + 1, visited) ||
+        parseGraph(grid, s.slice(1), row, col - 1, visited);
     grid[row][col] = character;
     return result;
 }
