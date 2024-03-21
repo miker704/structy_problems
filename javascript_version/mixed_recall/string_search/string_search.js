@@ -9,14 +9,33 @@
 
 const stringSearch = (grid, s) => {
 
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            if (parseGraph(grid, s, row, col, 0)) { return true; }
+        }
+    }
+    return false;
 };
 
 
 const parseGraph = (grid, s, row, col, iter) => {
     // console.log("grid pre :");
     // console.table(grid);
-
-
+    if (s === "") { return true; }
+    let rBound = 0 <= row && row < grid.length;
+    let cBound = 0 <= col && col < grid[0].length;
+    if (!rBound || !cBound) { return false; }
+    let character = s[0];
+    if (grid[row][col] !== character) {
+        return false
+    }
+    grid[row][col] = "*";
+    result = parseGraph(grid, s.slice(1), row + 1, col, iter) ||
+        parseGraph(grid, s.slice(1), row - 1, col, iter) ||
+        parseGraph(grid, s.slice(1), row, col + 1, iter) ||
+        parseGraph(grid, s.slice(1), row, col - 1, iter);
+    grid[row][col] = character;
+    return result;
 }
 
 let grid = [
