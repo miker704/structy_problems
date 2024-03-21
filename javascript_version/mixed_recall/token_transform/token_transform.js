@@ -10,7 +10,23 @@
 //two pointers and recursion with indirect dynamic programming
 const tokenTransform = (s, tokens) => {
 
-
+    let output = "";
+    let i = 0;
+    let j = 1;
+    while (i < s.length) {
+        if (s[i] !== "$") { output += s[i]; i++; j = i + 1; }
+        else if (s[j] !== "$") { j++; }
+        else {
+            let key = s.slice(i, j + 1);
+            let value = tokens[key];
+            let evaluatedValue = tokenTransform(value, tokens);
+            tokens[key] = evaluatedValue;
+            output += evaluatedValue;
+            i = j + 1;
+            j = i + 1;
+        }
+    }
+    return output;
 };
 
 
@@ -59,4 +75,4 @@ tokens = {
     '$8$': "",
 };
 console.log(tokenTransform("z$0$z$0$z$0$z$0$z$0$z$0$z", tokens));
-  // -> 'zzzzzzz'
+// -> 'zzzzzzz'
