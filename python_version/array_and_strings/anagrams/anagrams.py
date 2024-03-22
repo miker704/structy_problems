@@ -4,12 +4,18 @@
 # contain the same characters, but in any order.
 
 def anagrams(s1, s2):
-   return
+   return hsh_it(s1) == hsh_it(s2)
  
 
 
 def hsh_it(s):
-    return 
+    hsh = {}
+    for char in s:
+        if char in hsh:
+            hsh[char]+=1
+        else:
+            hsh[char]=1
+    return hsh
 
 
 print(anagrams('restful', 'fluster'))  # -> True
