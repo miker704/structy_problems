@@ -5,7 +5,7 @@ package intro.hey_programmer;
 public class hey_programmer {
 
     static String greet(String s) {
-        return "";
+        return String.format("hey %s", s);
     }
 
     public static void main(String[] args) {
