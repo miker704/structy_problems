@@ -15,9 +15,21 @@ public class compress {
     public static String Compress(String str) {
 
         String result = "";
+        int i = 0;
+        int j = 0;
+        while (j < str.length()) {
+            if (str.charAt(i) == str.charAt(j)) {
+                j++;
+            } else {
+                String temp = j - i == 1 ? String.valueOf(str.charAt(i)) :
+                        String.valueOf(str.substring(i, j).length()) + String.valueOf(str.charAt(i));
+                result += temp;
+                i = j;
+            }
 
-    
-
+        }
+        result+= j - i == 1 ? String.valueOf(str.charAt(i)) :
+                String.valueOf(str.substring(i, j).length()) + String.valueOf(str.charAt(i));
         return result;
     }
 
