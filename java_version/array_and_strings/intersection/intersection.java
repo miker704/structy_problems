@@ -12,7 +12,11 @@ public class intersection {
 
     public static List<Integer> Intersection(List<Integer> vector1, List<Integer> vector2) {
         List<Integer> array = new ArrayList<>();
-
+        HashSet<Integer> set = new HashSet<>(vector1);
+        for(int i: vector2){
+            if(set.contains(i)){array.add(i);}
+        }
+        Collections.sort(array);
         return array;
     }
 
