@@ -10,11 +10,23 @@ import java.util.HashMap;
 public class anagrams {
 
     public static boolean Anagrams(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
         return hashIt(str1).equals(hashIt(str2));
     }
 
     public static HashMap<Character, Integer> hashIt(String str) {
         HashMap<Character, Integer> hash = new HashMap<>();
+        for (char letter : str.toCharArray()) {
+//            if (hash.containsKey(letter)) {
+//                hash.put(letter, hash.get(letter) + 1);
+//            } else {
+//                hash.put(letter, 1);
+//            }
+            hash.merge(letter, 1, Integer::sum);
+
+        }
         return hash;
     }
 
