@@ -17,13 +17,20 @@ public class pair_sum {
 
     public static List<Integer> pairSum(List<Integer> vector, int target) {
         List<Integer> array = new ArrayList<>();
-        
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        for (int i = 0; i < vector.size(); i++) {
+            int sum = target - vector.get(i);
+            if (hash.containsKey(sum)) {
+                return List.of(hash.get(sum), i);
+            }
+            hash.put(vector.get(i), i);
+        }
         return array;
     }
 
     public static void printList(List<Integer> vector) {
-        vector.stream().forEach(i->{
-            System.out.printf("%s,",i);
+        vector.stream().forEach(i -> {
+            System.out.printf("%s,", i);
         });
         System.out.println("\n");
     }
