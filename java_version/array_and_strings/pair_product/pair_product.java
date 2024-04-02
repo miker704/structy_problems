@@ -18,8 +18,14 @@ public class pair_product {
 
     public static List<Integer> pairProduct(List<Integer> vector, int target) {
         List<Integer> array = new ArrayList<>();
-    
-
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        for (int i = 0; i < vector.size(); i++) {
+            int divisor = target / vector.get(i);
+            if (hash.containsKey(divisor)) {
+                return List.of(hash.get(divisor), i);
+            }
+            hash.put(vector.get(i), i);
+        }
         return array;
     }
 
