@@ -40,9 +40,22 @@ public class uncompress {
     // optimized
 
     public static String Uncompress(String str) {
-
         String result = "";
-    
+        int i = 0;
+        int j = i + 1;
+        String numbers = "0123456789";
+        while (j < str.length()) {
+            if (numbers.indexOf(str.charAt(j)) != -1) {
+                j++;
+            } else {
+                int num = Integer.parseInt(str.substring(i, j));
+                for (int x = 0; x < num; x++) {
+                    result += str.charAt(j);
+                }
+                j++;
+                i=j;
+            }
+        }
         return result;
     }
 
