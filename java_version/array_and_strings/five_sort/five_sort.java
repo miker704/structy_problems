@@ -13,8 +13,22 @@ import java.util.List;
 public class five_sort {
 
     public static List<Integer> fiveSort(List<Integer> vector) {
-    
-
+        int i = 0;
+        int j = vector.size() - 1;
+        while (i < j) {
+            if (vector.get(j) == 5) {
+                j--;
+            } else if (vector.get(i) == 5) {
+//                int temp = vector.remove(i);
+//                vector.add(j, temp);
+//                temp = vector.remove(j - 1);
+//                vector.add(i, temp);
+                Collections.swap(vector, i, j);
+                i++;
+            } else {
+                i++;
+            }
+        }
         return vector;
     }
 
