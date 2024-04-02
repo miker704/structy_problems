@@ -25,6 +25,20 @@ public class breadth_first_value {
     public static <T> List<String> breadthFirstValues(Node<String> root) {
 
         List<String>treeNodes = new ArrayList<>();
+        Queue<Node<String>> queue = new ArrayDeque<>();
+        if(root == null){return treeNodes;}
+        queue.add(root);
+        while(!queue.isEmpty()){
+            Node<String> currNode  = queue.remove();
+            treeNodes.add(currNode.val);
+            if(currNode.left != null){
+                queue.add(currNode.left);
+            }
+            if(currNode.right != null){
+                queue.add(currNode.right);
+            }
+        }
+
         return treeNodes;
     }
 
