@@ -21,7 +21,13 @@ public class max_root_to_leaf_path_sum {
 
 
     public static <T> int maxPathSum(Node<Integer> root) {
+        if (root == null) {
             return Integer.MIN_VALUE;
+        }
+        if (root.right == null && root.left == null) {
+            return root.val;
+        }
+        return root.val + Math.max(maxPathSum(root.left), maxPathSum(root.right));
     }
 
 
