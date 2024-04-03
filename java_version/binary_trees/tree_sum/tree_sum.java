@@ -23,24 +23,51 @@ public class tree_sum {
 
     public static <T> int treeSum(Node<Integer> root) {
         int sum = 0;
-
+        Stack<Node<Integer>> stack = new Stack<>();
+        if (root == null) {
+            return 0;
+        }
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node<Integer>curr = stack.pop();
+            sum+=curr.val;
+            if(curr.left != null){
+                stack.push(curr.left);
+            }
+            if(curr.right != null){
+                stack.push(curr.right);
+            }
+        }
         return sum;
     }
 
     public static <T> int treeSumRecur(Node<Integer> root) {
+        if (root == null) {
             return 0;
+        }
+        return root.val + treeSumRecur(root.left) + treeSumRecur(root.right);
     }
 
     public static <T> int treeSumBreadth(Node<Integer> root) {
 
         int sum = 0;
-    
-    
+        Queue<Node<Integer>> queue = new ArrayDeque<>();
+        if (root == null) {
+            return 0;
+        }
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node<Integer> curr = queue.remove();
+            sum += curr.val;
+            if (curr.left != null) {
+                queue.add(curr.left);
+            }
+            if (curr.right != null) {
+                queue.add(curr.right);
+            }
+        }
         return sum;
     }
-
-
-
 
     public static void main(String[] args) {
         Node<Integer> a = new Node<>(3);
