@@ -30,10 +30,20 @@ public class depth_first_values {
 
     public static List<String> depthFirstValues(Node<String> root) {
         // todo
-
+        Stack<Node<String>> stack = new Stack<>();
         List<String> tree_nodes = new ArrayList<>();
-
-
+        if(root == null){return tree_nodes;}
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node<String> node  = stack.pop();
+            tree_nodes.add(node.val);
+            if(node.right != null){
+                stack.push(node.right);
+            }
+            if(node.left != null){
+                stack.push(node.left);
+            }
+        }
         return tree_nodes;
     }
 
@@ -57,12 +67,18 @@ public class depth_first_values {
     public static List<String> depthFirstValuesRecur(Node<String> root) {
         // todo
         List<String> treeNodes = new ArrayList<>();
-        return _depthFirstValuesRecur(root,treeNodes);
+        return _depthFirstValuesRecur(root, treeNodes);
     }
 
     public static List<String> _depthFirstValuesRecur(Node<String> root, List<String> treeNodes) {
         // todo
+        if (root == null) {
             return treeNodes;
+        }
+        treeNodes.add(root.val);
+        _depthFirstValuesRecur(root.left, treeNodes);
+        _depthFirstValuesRecur(root.right, treeNodes);
+        return treeNodes;
     }
 
     public static void print_dfs_vector(List<String> tree_nodes) {
