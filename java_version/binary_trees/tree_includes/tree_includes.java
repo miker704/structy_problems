@@ -24,12 +24,26 @@ class Node<T> {
 public class tree_includes {
 
     public static <T> boolean treeIncludes(Node<T> root, String targetValue) {
-
-            return false;
+        if(root == null){return false;}
+        Queue<Node<T>>queue = new ArrayDeque<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            Node<T>curr = queue.remove();
+            if(curr.val == targetValue){ return true;}
+            if(curr.left != null){ queue.add(curr.left);}
+            if(curr.right != null){ queue.add(curr.right);}
+        }
+        return false;
     }
 
     public static <T> boolean treeIncludesRecur(Node<T> root, String targetValue) {
+        if (root == null) {
             return false;
+        }
+        if (root.val == targetValue) {
+            return true;
+        }
+        return treeIncludesRecur(root.left, targetValue) || treeIncludesRecur(root.right, targetValue);
     }
 
     public static void main(String[] args) {
