@@ -24,16 +24,51 @@ class Node<T> {
 public class tree_min_value {
 
     public static <T> int treeMinValueDFS(Node<T> root) {
-
+        if (root == null) {
             return 0;
+        }
+        int minVal = Integer.MAX_VALUE;
+        Stack<Node<T>> stack = new Stack<>();
+        stack.push(root);
+        while (!(stack.isEmpty())) {
+            Node<T> curr = stack.pop();
+            minVal = Math.min(minVal, (Integer) curr.val);
+            if (curr.left != null) {
+                stack.push(curr.left);
+            }
+            if (curr.right != null) {
+                stack.push(curr.right);
+            }
+        }
+        return minVal;
     }
 
     public static <T> int treeMinValueBFS(Node<T> root) {
+        if (root == null) {
             return 0;
+        }
+        int minVal = Integer.MAX_VALUE;
+        Queue<Node<T>> queue = new ArrayDeque<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node<T> curr = queue.remove();
+            minVal = Math.min(minVal, (Integer) curr.val);
+            if (curr.left != null) {
+                queue.add(curr.left);
+            }
+            if (curr.right != null) {
+                queue.add(curr.right);
+            }
+        }
+        return minVal;
     }
 
     public static <T> int treeMinValueRecurDFS(Node<Integer> root) {
+        if (root == null) {
             return Integer.MAX_VALUE;
+        }
+        int minVal = Math.min(treeMinValueRecurDFS(root.left), treeMinValueRecurDFS(root.right));
+        return Math.min(root.val, minVal);
     }
 
     public static void main(String[] args) {
