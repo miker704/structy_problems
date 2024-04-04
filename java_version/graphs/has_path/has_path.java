@@ -18,14 +18,28 @@ import java.util.Queue;
 
 public class has_path {
     public static boolean hasPathBFS(Map<String, List<String>> graph, String src, String dst) {
-
-    
+        Queue<String> queue = new ArrayDeque<>();
+        queue.add(src);
+        while (!queue.isEmpty()) {
+            String node = queue.remove();
+            if (node.equalsIgnoreCase(dst)) {
+                return true;
+            }
+            queue.addAll(graph.get(node));
+        }
         return false;
     }
 
     public static boolean hasPathDFS(Map<String, List<String>> graph, String src, String dst) {
         // todo
-
+        if (src.equalsIgnoreCase(dst)) {
+            return true;
+        }
+        for (String nextNode : graph.get(src)) {
+            if (hasPathDFS(graph, nextNode, dst)) {
+                return true;
+            }
+        }
         return false;
     }
 
