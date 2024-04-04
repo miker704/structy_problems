@@ -13,15 +13,24 @@ public class largest_component {
     public static int largestComponent(Map<Integer, List<Integer>> graph) {
         // todo
         int maxComponent = 0;
-    
+        HashSet<Integer> visited = new HashSet<>();
+        for (int current : graph.keySet()) {
+            maxComponent = Math.max(maxComponent, hasPath(graph, current, visited));
+        }
         return maxComponent;
     }
 
     public static int hasPath(Map<Integer, List<Integer>> graph, int currentNode, HashSet<Integer> visited) {
         // todo
-        
+        if (visited.contains(currentNode)) {
+            return 0;
+        }
+        visited.add(currentNode);
         int nodeSize = 1;
-    
+        for (int nextNode : graph.get(currentNode)) {
+            nodeSize +=  hasPath(graph, nextNode, visited);
+        }
+
         return nodeSize;
     }
 
