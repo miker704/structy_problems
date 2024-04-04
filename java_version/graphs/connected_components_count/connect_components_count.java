@@ -18,6 +18,7 @@ public class connect_components_count {
 
     public static boolean hasPath(Map<Integer, List<Integer>> graph, int currNode, HashSet<Integer> visited) {
         // todo
+        if(visited.contains(currNode)){return false;}
     
         return true;
     }
