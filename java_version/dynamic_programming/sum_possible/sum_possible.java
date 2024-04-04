@@ -27,7 +27,20 @@ import java.util.Map;
 public class sum_possible {
 
     public static boolean sumPossible(int amount, List<Integer> numbers, Map<Integer, Boolean> u_map) {
-
+        if (u_map.containsKey(amount)) {
+            return u_map.get(amount);
+        }
+        if(amount < 0){return false;}
+        if (amount == 0) {
+            return true;
+        }
+        for (int num : numbers) {
+            if (sumPossible(amount - num, numbers, u_map)) {
+                u_map.put(amount,true);
+                return true;
+            }
+        }
+        u_map.put(amount,false);
         return false;
     }
 
