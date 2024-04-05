@@ -10,16 +10,51 @@ import java.util.*;
 
 //using breadth first search since we are looking for the shortest path
 
+
+/*REDO*/
 public class shortest_path {
     public static int shortestPath(List<List<String>> edges, String nodeA, String nodeB) {
         // todo
-    
+        Map<String, List<String>> graph = buildGraph(edges);
+        HashSet<String> visitedNodes = new HashSet<>();
+        Queue<AbstractMap.SimpleEntry<String, Integer>> queue = new ArrayDeque<>();
+        queue.add(new AbstractMap.SimpleEntry<>(nodeA, 0));
+        while (!queue.isEmpty()) {
+            AbstractMap.SimpleEntry<String, Integer> entry = queue.remove();
+            String currNode = entry.getKey();
+            int currentLevel = entry.getValue();
+
+            if (currNode.equalsIgnoreCase(nodeB)) {
+                return currentLevel;
+            }
+
+            for (String nextNode : graph.get(currNode)) {
+                if (!visitedNodes.contains(nextNode)) {
+                    visitedNodes.add(nextNode);
+                    queue.add(new AbstractMap.SimpleEntry<>(nextNode, currentLevel + 1));
+                }
+            }
+
+
+        }
+
         return -1;
     }
 
     public static Map<String, List<String>> buildGraph(List<List<String>> edges) {
         Map<String, List<String>> graph = new HashMap<>();
-
+        for (List<String> edge : edges) {
+            String a = edge.get(0);
+            String b = edge.get(1);
+            if (!graph.containsKey(a)) {
+                graph.put(a, new ArrayList<>());
+            }
+            if (!graph.containsKey(b)) {
+                graph.put(b, new ArrayList<>());
+            }
+            graph.get(a).add(b);
+            graph.get(b).add(a);
+        }
         return graph;
     }
 
