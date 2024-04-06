@@ -25,12 +25,28 @@ public class undirected_path {
     public static Map<String, List<String>> buildGraph(List<List<String>> edges) {
 
         Map<String, List<String>> graph = new HashMap<>();
-
+        for (List<String> edge : edges) {
+            String a = edge.get(0);
+            String b = edge.get(1);
+            if (!graph.containsKey(a)) {
+                graph.put(a, new ArrayList<>());
+            }
+            if (!graph.containsKey(b)) {
+                graph.put(b, new ArrayList<>());
+            }
+            graph.get(a).add(b);
+            graph.get(b).add(a);
+        }
         return graph;
     }
 
     public static boolean hasPath(Map<String, List<String>> graph, String src, String dst, HashSet<String> visited) {
-
+            if(src.equalsIgnoreCase(dst)){return true;}
+            if(visited.contains(src)){return false;}
+            visited.add(src);
+            for(String curr : graph.get(src)){
+                if(hasPath(graph, curr, dst, visited)){return true;}
+            }
         return false;
     }
 
