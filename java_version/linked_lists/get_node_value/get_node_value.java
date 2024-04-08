@@ -17,6 +17,18 @@ class Node<T> {
 
 public class get_node_value {
     public static <T> T getNodeValue(Node<T> head, int index) {
+        if (head == null) {
+            return null;
+        }
+        int counter = 0;
+        Node<T> curr = head;
+        while (curr != null) {
+            if (counter == index) {
+                return curr.val;
+            }
+            counter++;
+            curr = curr.next;
+        }
 
         // todo
         return null;
@@ -25,14 +37,18 @@ public class get_node_value {
     public static <T> T getNodeValueRecur(Node<T> head, int index) {
         // todo
         Node<T> curr = head;
-        return _getNodeValueRecur(curr,index);
+        return _getNodeValueRecur(curr, index);
     }
 
     public static <T> T _getNodeValueRecur(Node<T> head, int index) {
         // todo
-        return null;
-
-    
+        if (head == null) {
+            return null;
+        }
+        if (index == 0) {
+            return head.val;
+        }
+        return _getNodeValueRecur(head.next, index - 1);
     }
 
     public static void main(String[] args) {
