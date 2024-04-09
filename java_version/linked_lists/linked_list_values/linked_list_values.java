@@ -24,8 +24,11 @@ public class linked_list_values {
     public static List<String> linkedListValues(Node<String> head) {
         // todo
         List<String> nodes = new ArrayList<>();
-
-
+        Node<String> curr = head;
+        while (curr != null) {
+            nodes.add(curr.val);
+            curr = curr.next;
+        }
         return nodes;
     }
 
@@ -39,7 +42,9 @@ public class linked_list_values {
 
     public static void _linkedListValuesRecur(Node<String> head, List<String> nodeValues) {
         // todo
-            return;
+        if(head == null){return;}
+        nodeValues.add(head.val);
+        _linkedListValuesRecur(head.next,nodeValues);
     }
 
     public static void printList(List<String> nodeValues) {
