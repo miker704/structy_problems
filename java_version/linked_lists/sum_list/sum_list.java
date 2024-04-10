@@ -17,20 +17,27 @@ public class sum_list {
     public static int sumList(Node<Integer> head) {
         // todo
         int sum = 0;
-
+        Node<Integer> curr = head;
+        while (curr != null) {
+            sum += curr.val;
+            curr = curr.next;
+        }
 
         return sum;
     }
 
     public static int sumListRecur(Node<Integer> head) {
         // todo
-        Node<Integer>curr = head;
+        Node<Integer> curr = head;
         return _sumListRecur(curr);
     }
 
     public static int _sumListRecur(Node<Integer> curr) {
         // todo
+        if (curr == null) {
             return 0;
+        }
+        return curr.val + _sumListRecur(curr.next);
     }
 
     public static void main(String[] args) {
