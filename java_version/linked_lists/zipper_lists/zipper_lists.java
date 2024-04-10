@@ -24,6 +24,29 @@ public class zipper_lists {
     public static <T> Node<T> zipperLists(Node<T> head1, Node<T> head2) {
         // todo
         Node<T> new_head = head1;
+        Node<T> tail = head1;
+        Node<T> curr1 = head1.next;
+        Node<T> curr2 = head2;
+        int count = 0;
+        while (curr1 != null && curr2 != null) {
+            if (count % 2 == 0) {
+                tail.next = curr2;
+                curr2 = curr2.next;
+            } else {
+                tail.next = curr1;
+                curr1 = curr1.next;
+            }
+            tail = tail.next;
+            count++;
+        }
+
+        if (curr1 != null) {
+            tail.next = curr1;
+        }
+        if (curr2 != null) {
+            tail.next = curr2;
+        }
+
 
         return new_head;
     }
@@ -35,8 +58,14 @@ public class zipper_lists {
 
     public static <T> Node<T> _zipperListsRecur(Node<T> head1, Node<T> head2) {
         // todo
-
-
+        if (head1 == null) {
+            return head2;
+        }
+        if (head2 == null) {
+            return head1;
+        }
+        head2.next = _zipperListsRecur(head1.next, head2.next);
+        head1.next = head2;
         return head1;
 
     }
