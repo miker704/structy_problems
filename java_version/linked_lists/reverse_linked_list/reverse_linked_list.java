@@ -18,23 +18,37 @@ public class reverse_linked_list {
 
     public static <T> Node<T> reverseList(Node<T> head) {
         // todo
+        if (head == null) {
+            return null;
+        }
+        Node<T> curr = head;
         Node<T> prev = null;
-    
+        while (curr != null) {
+            Node<T> next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
         return prev;
     }
 
     public static <T> Node<T> reverseListRecur(Node<T> head) {
         // todo
-
         Node<T> curr = head;
         Node<T> prev = null;
-        return _reverseListRecur(head,curr,prev);
+        return _reverseListRecur(head, curr, prev);
     }
 
-    public static <T> Node<T> _reverseListRecur(Node<T> head,Node<T> curr,Node<T> prev) {
+    public static <T> Node<T> _reverseListRecur(Node<T> head, Node<T> curr, Node<T> prev) {
         // todo
-
+        if (curr == null) {
             return prev;
+        }
+        Node<T> next = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = next;
+        return _reverseListRecur(head, curr, prev);
 
     }
 
