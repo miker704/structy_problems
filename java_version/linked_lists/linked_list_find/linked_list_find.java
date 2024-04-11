@@ -17,19 +17,26 @@ public class linked_list_find {
 
     public static <T> boolean linkedListFind(Node<T> head, T target) {
         // todo
-    
+        Node<T> curr = head;
+        while(curr!=null){
+            if(curr.val == target){return true;}
+            curr= curr.next;
+        }
 
         return false;
     }
 
     public static <T> boolean linkedListFindRecur(Node<T> head, T target) {
         // todo
-            return true;
+            Node<T>curr = head;
+            return _linkedListFindRecur(curr,target);
     }
 
-    public static <T> void _linkedListFindRecur(Node<T> head, T target) {
+    public static <T> boolean _linkedListFindRecur(Node<T> head, T target) {
         // todo
-        return;
+        if(head == null){return false;}
+        if(head.val == target){return true;}
+        return _linkedListFindRecur(head.next,target);
     }
 
     public static void main(String[] args) {
