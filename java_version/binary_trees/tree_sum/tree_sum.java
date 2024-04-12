@@ -24,7 +24,7 @@ public class tree_sum {
     public static <T> int treeSum(Node<Integer> root) {
         int sum = 0;
         Stack<Node<Integer>> stack = new Stack<>();
-        if (root == null) {
+        if (root == null) { 
             return 0;
         }
         stack.push(root);
