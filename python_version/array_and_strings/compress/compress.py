@@ -14,8 +14,23 @@
 #
 
 def compress(s):
-    return
+    s+="!"
+    result = []
+    i = 0
+    j = 0
+    while j < len(s):
+        if s[i] == s[j]:
+            j+=1
+        else:
+            num = j-i
+            if num == 1:
+                result.append(s[i])
+            else:
+                result.append(str(num))
+                result.append(s[i])
+            i=j
 
+    return "".join(result)
 
 print(compress('ccaaatsss')) # -> '2c3at3s'
 print(compress('ssssbbz')) # -> '4s2bz'
