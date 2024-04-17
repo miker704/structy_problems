@@ -6,12 +6,23 @@
 #     You may assume that each input vector does not contain duplicate elements.
 
 def intersection(a, b):
-    return
-
+    a = hash_it(a)
+    b = hash_it(b)
+    result = []
+    for ele in a:
+        if ele in b:
+            result.append(ele)
+    return result
 
 
 def hash_it(a):
-    return
+    hsh = {}
+    for i in a:
+        if i in hsh:
+            hsh[i] += 1
+        else:
+            hsh[i] = 1
+    return hsh
 
 
 #bad way O(n*m) time and O(min(n,m)) space
