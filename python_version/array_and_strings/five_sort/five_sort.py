@@ -9,8 +9,18 @@
 #time O(n) using one loop  space is O(1) as we are using input array so no extra space needed
 
 def five_sort(nums):
-    return
 
+    j = len(nums)-1
+    i = 0
+    while i < j:
+        if nums[j] == 5:
+            j -= 1
+        elif nums[i] == 5:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+        else:
+            i += 1
+    return nums
 
 
 print(five_sort([12, 5, 1, 5, 12, 7]))
