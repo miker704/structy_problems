@@ -6,8 +6,17 @@
 # You can assume that the input string is non-empty.
 
 def most_frequent_char(s):
-    return
-
+    hsh = {}
+    for i in s:
+        if i in hsh:
+            hsh[i] += 1
+        else:
+            hsh[i] = 1
+    maxVal = None
+    for char in hsh:
+        if maxVal == None or hsh[char] > hsh[maxVal]:
+            maxVal = char
+    return maxVal
 
 
 print(most_frequent_char('bookeeper'))  # -> 'e'
