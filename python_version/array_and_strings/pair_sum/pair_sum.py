@@ -8,7 +8,13 @@
 # There is guaranteed to be one such pair that sums to the target.
 
 def pair_sum(numbers, target_sum):
-    return
+    hsh = {}
+    for i in range(0, len(numbers)):
+        comp = target_sum-numbers[i]
+        if comp in hsh:
+            return (hsh[comp], i)
+        hsh[numbers[i]] = i
+
 
 print(pair_sum([3, 2, 5, 4, 1], 8))  # -> (0, 2)
 print(pair_sum([4, 7, 9, 2, 5, 1], 5))  # -> (0, 5)
