@@ -16,8 +16,12 @@
 #         hsh[numbers[i]] = i
 # using enumerate
 def pair_product(numbers, target_product):
-    return
-
+    hsh = {}
+    for index, num in enumerate(numbers):
+        divisor = int(target_product/num)
+        if divisor in hsh:
+            return (hsh[divisor], index)
+        hsh[num] = index
 
 
 print(pair_product([3, 2, 5, 4, 1], 8))  # -> (1, 3)
