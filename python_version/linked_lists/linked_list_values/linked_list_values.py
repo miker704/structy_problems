@@ -12,18 +12,27 @@ class Node:
 
 
 def linked_list_values(head):
+    node_values = []
+    curr = Node
+    curr = head
 
+    while curr != None:
+        node_values.append(curr.value)
+        curr=curr.next
 
-    return 
+    return node_values
 
 def linked_list_values_recur(head):
-
-    return 
+    node_values = []
+    curr = head
+    _linked_list_values_recur(curr,node_values)
+    return node_values
 
 def _linked_list_values_recur(curr,node_values):
-
-    return 
-
+    if curr == None:
+        return
+    node_values.append(curr.value)
+    return _linked_list_values_recur(curr.next,node_values)
 
 a = Node("a")
 b = Node("b")
