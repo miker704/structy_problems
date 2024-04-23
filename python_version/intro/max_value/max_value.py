@@ -8,8 +8,12 @@
 
 
 def max_value(array):
+    max_val = array[0]
+    for i in range(len(array)):
+        if(array[i] > max_val):
+            max_val = array[i]
+    return max_val
 
-    return 
 
 
 print(max_value([10, 5, 40, 40.3])) # 40.3
