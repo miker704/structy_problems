@@ -9,14 +9,22 @@ class Node:
     self.next = None
 
 def linked_list_find(head, target):
-
-    return 
+    curr = head
+    while curr != None:
+        if curr.val == target:
+            return True
+        curr=curr.next
+    return False
 
 def linked_list_find_recur(head, target):
-    return 
+    curr = head
+    return _linked_list_find_recur(curr,target)
 def _linked_list_find_recur(curr, target):
-
-    return 
+    if curr == None:
+        return False
+    if curr.val == target:
+        return True
+    return _linked_list_find_recur(curr.next,target)
 
 
 
