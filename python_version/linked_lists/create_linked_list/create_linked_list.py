@@ -12,16 +12,27 @@ class Node:
 
 
 def create_linked_list(values):
+    if len(values) == 0:
+        return None
+    head = Node(values[0])
+    curr = head
+    for i in range(1, len(values)):
+        new_node = Node(values[i])
+        curr.next = new_node
+        curr = new_node
+    return head
 
-    return 
 
 def create_linked_list_recur(values):
-    return 
+    return create_linked_list_recur_exe(values, 0)
 
 
 def create_linked_list_recur_exe(values, idx):
-
-    return 
+    if idx == len(values):
+        return None
+    head = Node(values[idx])
+    head.next = create_linked_list_recur_exe(values, idx+1)
+    return head
 
 
 def print_list(head):
