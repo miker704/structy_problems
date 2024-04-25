@@ -10,17 +10,21 @@ class Node:
 
 
 def sum_list(head):
-
-    return 
+    result = 0
+    curr = head
+    while curr != None:
+        result += curr.value
+        curr = curr.next
+    return result
 
 
 def sum_list_recur(head):
-    return
-
-
+    curr = head
+    return _sum_list_recur(curr)
 def _sum_list_recur(curr):
-
-    return 
+    if curr == None:
+        return 0
+    return curr.value + _sum_list_recur(curr.next)
 
 
 print("iterative method")
