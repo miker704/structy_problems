@@ -19,13 +19,29 @@ class Node:
 
 
 def remove_node(head, target_val):
-    
-    return 
+    if head.val == target_val:
+        return head.next
+    curr = head
+    new_head = head
+    prev = None
+    while curr is not None:
+        if curr.val == target_val:
+            prev.next = curr.next
+            curr = None
+            break
+        prev = curr
+        curr = curr.next
+    return new_head
 
 
 def remove_node_recur(head, target_val):
-    
-    return
+    if head is None:
+        return None
+    if head.val == target_val:
+        return head.next
+    head.next = remove_node_recur(head.next, target_val)
+    return head
+
 
 
 def print_list(head):
