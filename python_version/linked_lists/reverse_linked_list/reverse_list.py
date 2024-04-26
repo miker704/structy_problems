@@ -9,16 +9,30 @@ class Node:
     self.next = None
 
 def reverse_list(head):
-
-    return 
+    curr = head
+    prev = None
+    while curr is not None:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+    head = prev
+    return head
 
 def reverse_list_recur(head):
-    
-    return 
+    curr = head
+    prev = None
+    return _reverse_list_recur(head,curr,prev)
 def _reverse_list_recur(head,curr,prev):
+    if curr == None:
+        head = prev
+        return head
+    next_node = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next_node
 
-
-    return
+    return _reverse_list_recur(head,curr,prev)
 
 def print_list(head):
     curr = head
